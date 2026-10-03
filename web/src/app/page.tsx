@@ -1,6 +1,8 @@
+import VehicleSearch from "@/components/vehicle-search";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main id="home" className="min-h-screen bg-black text-white">
       {/* Header */}
       <header className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -14,16 +16,16 @@ export default function Home() {
           </div>
 
           <nav className="hidden gap-7 text-sm text-zinc-300 md:flex">
-            <a href="#" className="hover:text-orange-500">
+            <a href="#home" className="hover:text-orange-500">
               Trang chủ
             </a>
-            <a href="#" className="hover:text-orange-500">
+            <a href="#products" className="hover:text-orange-500">
               Sản phẩm
             </a>
-            <a href="#" className="hover:text-orange-500">
+            <a href="#vehicle-search" className="hover:text-orange-500">
               Tra cứu theo xe
             </a>
-            <a href="#" className="hover:text-orange-500">
+            <a href="#contact" className="hover:text-orange-500">
               Liên hệ
             </a>
           </nav>
@@ -55,175 +57,18 @@ export default function Home() {
         </p>
 
         <div className="mt-8 flex gap-3">
-          <button className="rounded-lg bg-orange-500 px-6 py-3 font-bold text-black">
+          <a href="#vehicle-search" className="rounded-lg bg-orange-500 px-6 py-3 font-bold text-black">
             Tra cứu giảm xóc
-          </button>
+          </a>
 
           <button className="rounded-lg border border-zinc-700 px-6 py-3 font-bold">
             Liên hệ Zalo
           </button>
         </div>
       </section>
-      {/* Vehicle Search */}
-<section className="border-t border-zinc-800 bg-zinc-950 px-6 py-20">
-  <div className="mx-auto max-w-7xl">
-    <div className="mb-10">
-      <p className="text-sm font-bold tracking-[0.22em] text-orange-500">
-        TRA CỨU THEO XE
-      </p>
-
-      <h2 className="mt-3 text-3xl font-black md:text-4xl">
-        Tìm giảm xóc phù hợp
-      </h2>
-
-      <p className="mt-3 max-w-2xl text-zinc-400">
-        Chọn thông tin xe để kiểm tra sản phẩm phù hợp.
-      </p>
-    </div>
-
-    <div className="grid gap-4 md:grid-cols-4">
-      <div>
-        <label className="mb-2 block text-sm text-zinc-400">
-          Hãng xe
-        </label>
-
-        <select className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none">
-          <option>Chọn hãng xe</option>
-          <option>Toyota</option>
-          <option>Hyundai</option>
-          <option>Kia</option>
-          <option>Mitsubishi</option>
-          <option>Ford</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="mb-2 block text-sm text-zinc-400">
-          Dòng xe
-        </label>
-
-        <select className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none">
-          <option>Chọn dòng xe</option>
-          <option>Vios</option>
-          <option>Innova</option>
-          <option>Corolla Cross</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="mb-2 block text-sm text-zinc-400">
-          Năm sản xuất
-        </label>
-
-        <select className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none">
-          <option>Chọn năm</option>
-          <option>2014</option>
-          <option>2015</option>
-          <option>2016</option>
-          <option>2017</option>
-          <option>2018</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="mb-2 block text-sm text-zinc-400">
-          Mã xe
-        </label>
-
-        <select className="w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white outline-none">
-          <option>Chọn mã xe</option>
-          <option>NCP150</option>
-          <option>NCP93</option>
-        </select>
-      </div>
-    </div>
-
-    <button className="mt-6 rounded-xl bg-orange-500 px-8 py-4 font-black text-black hover:bg-orange-400">
-      TÌM SẢN PHẨM
-    </button>
-
-    {/* OE Search */}
-    <div className="mt-12 rounded-2xl border border-zinc-800 bg-black p-6 md:p-8">
-      <div className="grid gap-6 md:grid-cols-[1fr_1.5fr] md:items-center">
-        <div>
-          <p className="text-sm font-bold text-orange-500">
-            TÌM THEO MÃ
-          </p>
-
-          <h3 className="mt-2 text-2xl font-black">
-            OE Number / Part Number
-          </h3>
-
-          <p className="mt-2 text-sm text-zinc-500">
-            Nhập mã OE, mã NEVERSTOP hoặc mã xe.
-          </p>
-        </div>
-
-        <div className="flex gap-3">
-          <input
-            type="text"
-            placeholder="Ví dụ: 48520-0D040 / 2025-D031-322FL / NCP150"
-            className="min-w-0 flex-1 rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-4 text-white outline-none focus:border-orange-500"
-          />
-
-          <button className="rounded-xl bg-orange-500 px-6 font-black text-black">
-            Tìm
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{/* Popular Vehicles */}
-<section className="bg-white px-6 py-20 text-black">
-  <div className="mx-auto max-w-7xl">
-    <div className="mb-10">
-      <p className="text-sm font-bold tracking-[0.22em] text-orange-500">
-        DÒNG XE PHỔ BIẾN
-      </p>
-
-      <h2 className="mt-3 text-3xl font-black md:text-4xl">
-        Tra cứu nhanh theo dòng xe
-      </h2>
-
-      <p className="mt-3 text-zinc-500">
-        Chọn dòng xe để xem các mã giảm xóc phù hợp.
-      </p>
-    </div>
-
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-      {[
-        "Toyota Vios",
-        "Mitsubishi Xpander",
-        "Hyundai Grand i10",
-        "Hyundai Tucson",
-        "Kia K3 / Cerato",
-        "Ford Ranger",
-        "Toyota Innova",
-        "Toyota Corolla Cross",
-      ].map((vehicle) => (
-        <button
-          key={vehicle}
-          className="group rounded-2xl border border-zinc-200 bg-white p-6 text-left transition hover:border-orange-500 hover:shadow-lg"
-        >
-          <div className="text-xs font-bold tracking-[0.18em] text-zinc-400">
-            VEHICLE
-          </div>
-
-          <div className="mt-8 text-lg font-black">
-            {vehicle}
-          </div>
-
-          <div className="mt-3 text-sm font-bold text-orange-500">
-            Xem sản phẩm →
-          </div>
-        </button>
-      ))}
-    </div>
-  </div>
-</section>
+      <VehicleSearch />
 {/* Products */}
-<section className="bg-zinc-100 px-6 py-20 text-black">
+<section id="products" className="bg-zinc-100 px-6 py-20 text-black">
   <div className="mx-auto max-w-7xl">
     <div className="mb-10">
       <p className="text-sm font-bold tracking-[0.22em] text-orange-500">
@@ -393,7 +238,7 @@ export default function Home() {
 </section>
 
 {/* Contact CTA */}
-<section className="bg-orange-500 px-6 py-16 text-black">
+<section id="contact" className="bg-orange-500 px-6 py-16 text-black">
   <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
     <div>
       <p className="text-sm font-bold tracking-[0.18em]">

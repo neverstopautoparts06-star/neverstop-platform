@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "prebuild": "prisma generate",
+    "test:catalog": "tsx scripts/test-catalog.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
