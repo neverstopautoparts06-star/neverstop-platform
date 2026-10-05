@@ -99,3 +99,6 @@
  .hero-bottom #vehicle-search form:has(select){display:block}.hero-bottom #vehicle-search form:has(select)>.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.hero-bottom #vehicle-search form:has(select)>button{margin-top:10px;width:100%;height:40px}.hero-bottom .finder-tabs{gap:12px}.hero-bottom .finder-tabs button{font-size:10px}
 }
 .factory-hero>.hero-photo img{object-fit:contain}
+
+/* Restore the original unedited white-background product photograph. */
+.factory-hero>.hero-photo{background:#c4c4c3}.factory-hero>.hero-photo img{object-fit:cover;object-position:center}.hero-photo .photo-label{color:#333}
