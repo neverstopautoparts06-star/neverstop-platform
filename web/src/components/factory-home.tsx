@@ -1,8 +1,6 @@
 import StoreContact from './store-contact';
 import {contentLocale} from '@/lib/i18n';
-import SocialIcon from './social-icon';
-import {zaloChannels,contactCopy} from '@/lib/zalo-config';
-import {socialLinks} from '@/lib/social-config';
+import SocialStrip from './social-strip';
 import {HeroContacts} from './zalo-contact';
 import BrandIcon from './brand-icon';
 import '@/app/factory.css';
@@ -23,7 +21,7 @@ export default function FactoryHome({locale}:{locale:Locale}) {
  <section className="home-section popular-section"><div className="section-top"><div><p className="eyebrow">{c.popularTag}</p><h2>{c.popularTitle}</h2></div><p>{c.popularBody}</p></div><div className="vehicle-links">{vehicles.map((name,i)=><Link key={name} href={`/${locale}/products?q=${encodeURIComponent(name.replace(/^(Toyota|Hyundai|Kia) /,''))}&search=1`}><small>0{i+1}</small><span>{name}</span><b>↗</b></Link>)}</div></section>
  <section className="road-section"><Image src="/images/camry.jpg" alt="Toyota Camry ACV40" fill sizes="100vw"/><div className="road-shade"/><div className="road-copy"><p className="eyebrow">{c.sceneTag}</p><h2>{c.sceneTitle}</h2><p>{c.sceneBody}</p><a className="button primary" href="#contact">{c.sceneCta} ↗</a></div><small>{c.reference}</small></section>
  <section className="home-section process-section"><div className="section-top"><div><p className="eyebrow">{c.processTag}</p><h2>{c.processTitle}</h2></div><p>{c.processBody}</p></div><div className="process-grid">{['factory','warehouse','quality','shipping'].map((name,i)=><article key={name}><div className="process-image"><Image src={`/images/${name}.jpg`} alt={c.stages[i]} fill sizes="(max-width:760px) 50vw, 25vw"/><span>0{i+1}</span></div><h3>{c.stages[i]}</h3><p>{c.stageBodies[i]}</p></article>)}</div></section>
- <section id="social" className="social-section"><div><p className="eyebrow">NEVERSTOP / SOCIAL</p><h2>{c.socialTitle}</h2><p>{c.socialBody}</p></div><div className="social-links">{socialLinks.map(v=><a className="social-account" key={v.name} href={v.href} target="_blank" rel="noopener noreferrer" aria-label={`${v.name}: ${v.handle}`}><span className="social-icon"><SocialIcon name={v.name}/></span><span className="social-platform">{v.name}</span><span className="social-handle">{v.handle}</span></a>)}<span className="social-account social-pending"><span className="social-icon"><SocialIcon name="YouTube"/></span><span className="social-platform">YouTube</span><span className="social-handle">{c.pending}</span></span>{(['B2B','B2C'] as const).map(type=><a className="social-account" key={type} href={zaloChannels[type].url} target="_blank" rel="noopener noreferrer" aria-label={`Zalo · ${zaloChannels[type].title} · ${zaloChannels[type].phone}`}><span className="social-icon"><SocialIcon name="Zalo"/></span><span className="social-platform">Zalo · {type==='B2B'?contactCopy[contentLocale(locale)].business:contactCopy[contentLocale(locale)].owner}</span><span className="social-handle">{zaloChannels[type].phone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')}</span></a>)}</div></section>
+ <SocialStrip locale={locale}/>
  <StoreContact locale={locale}/>
  <div className="mobile-contact"><a href="#contact"><BrandIcon name="Zalo"/>{contacts[0].audience[contentLocale(locale)]} · {c.call} / Zalo</a><a href={contacts[1].zaloHref} target="_blank" rel="noopener noreferrer"><BrandIcon name="Zalo"/>{contacts[1].audience[contentLocale(locale)]} · Zalo ↗</a></div>
  </main>;
