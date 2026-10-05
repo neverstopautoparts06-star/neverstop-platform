@@ -66,3 +66,36 @@
 @media(max-width:760px) and (max-height:740px){.hero-copy{padding-top:12px;padding-bottom:12px}.factory-home h1{font-size:32px}.factory-home .hero-intro{margin:8px 0}.factory-home .hero-copy .eyebrow{margin-bottom:7px}.hero-contacts{margin-top:5px;gap:2px 10px}.hero-contacts>a{padding:4px 0}.hero-finder{margin-top:8px}.hero-finder #vehicle-search{padding-top:8px}.hero-finder .finder-tabs{margin-bottom:8px}.hero-finder #vehicle-search form>.grid{gap:6px}.hero-finder #vehicle-search select{height:36px}.hero-finder #vehicle-search label{margin-bottom:3px}}
 
 .maps-link{display:inline-flex;align-items:center;gap:7px}.factory-home .button:has(.contact-brand-icon){gap:10px}
+
+/* Balanced product-led hero, shared contact row and embedded search toolbar. */
+.factory-hero{display:grid;grid-template-columns:minmax(0,45%) minmax(0,55%);background:#0d0f0e;max-width:1600px;padding:0;min-height:0}
+.hero-copy{padding:26px 34px 22px max(28px,calc((100vw - 1380px)/2));justify-content:center}
+.factory-home h1{font-size:clamp(36px,3.6vw,54px)}
+.factory-home .hero-copy .eyebrow{margin-bottom:12px}
+.factory-home .hero-intro{font-size:14px;line-height:1.65;margin:16px 0 18px}
+.factory-hero>.hero-photo{min-height:310px;height:clamp(310px,36vh,380px);background:#0d0f0e}
+.hero-photo img{object-fit:cover;object-position:center}
+.hero-photo .photo-label{color:#c4c5bd;top:16px;left:20px;font-size:9px}
+.hero-photo .photo-caption{padding:14px 20px;font-size:10px}
+.hero-bottom{grid-column:1/-1;padding:0 max(28px,calc((100vw - 1380px)/2)) 20px;min-width:0}
+.hero-bottom .hero-contacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 12px}
+.hero-bottom .hero-contacts>a,.hero-bottom .hero-contacts>a:last-child{grid-column:auto;min-height:66px;padding:10px 14px;background:#141714;border:1px solid #252b24;border-radius:4px;align-items:center}
+.hero-bottom .hero-contacts strong{font-size:13px;line-height:1.4}.hero-bottom .hero-contacts small{font-size:11px;line-height:1.4}
+.hero-bottom .hero-finder{margin:0;background:#151815;border:1px solid #2c322b;border-radius:5px;padding:12px 16px}
+.hero-bottom #vehicle-search{padding:0;border:0;background:transparent}
+.hero-bottom .finder-tabs{margin-bottom:10px;gap:24px}.hero-bottom .finder-tabs button{padding-bottom:7px}
+.hero-bottom #vehicle-search form:has(select){display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
+.hero-bottom #vehicle-search form:has(select)>.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.hero-bottom #vehicle-search form:has(select)>button{margin:0;height:40px;padding:8px 24px}
+.hero-bottom #vehicle-search form>button,.hero-bottom #oe-search button{background:var(--gold);color:#171813;opacity:1;font-weight:800;border:0}
+.hero-bottom #vehicle-search form>button:hover:not(:disabled),.hero-bottom #oe-search button:hover{background:#ffc45a}
+.hero-bottom #vehicle-search form>button:disabled{opacity:1;cursor:not-allowed;box-shadow:inset 0 0 0 1px #ffffff20}
+.hero-bottom #oe-search input{flex:1;width:auto}
+@media(max-width:1050px) and (min-width:761px){.hero-copy{padding:24px}.factory-home h1{font-size:38px}.hero-bottom{padding:0 24px 18px}.hero-bottom .hero-contacts{gap:10px}.hero-bottom .hero-contacts>a{padding:10px}.hero-bottom .hero-contacts strong{font-size:12px}.hero-bottom .hero-contacts small{font-size:10px}.hero-bottom #vehicle-search form:has(select){gap:8px}}
+@media(max-width:760px){
+ .factory-hero{display:flex;flex-direction:column}.hero-copy{padding:22px 20px 18px}.factory-home h1{font-size:36px}.factory-home .hero-intro{font-size:13px;margin:12px 0 14px}
+ .factory-hero>.hero-photo{min-height:0;height:220px;width:100%}.hero-photo img{object-fit:contain}.hero-photo .photo-label{font-size:8px;top:8px}.hero-photo .photo-caption{padding:8px 16px;font-size:9px}
+ .hero-bottom{padding:12px 16px 18px}.hero-bottom .hero-contacts{grid-template-columns:1fr;gap:6px;margin-bottom:10px}.hero-bottom .hero-contacts>a{min-height:54px;padding:8px 12px}.hero-bottom .hero-contacts strong{font-size:12px}.hero-bottom .hero-contacts small{font-size:10px}.hero-bottom .hero-finder{padding:12px}
+ .hero-bottom #vehicle-search form:has(select){display:block}.hero-bottom #vehicle-search form:has(select)>.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.hero-bottom #vehicle-search form:has(select)>button{margin-top:10px;width:100%;height:40px}.hero-bottom .finder-tabs{gap:12px}.hero-bottom .finder-tabs button{font-size:10px}
+}
+.factory-hero>.hero-photo img{object-fit:contain}
