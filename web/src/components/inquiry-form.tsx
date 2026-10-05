@@ -1,4 +1,5 @@
 'use client';
+import {ZaloChatButton} from './zalo-contact';
 import Link from 'next/link';
 import { useState, useRef } from 'react';
 import { dictionary, localized, type Locale } from '@/lib/i18n';
@@ -19,7 +20,7 @@ export default function InquiryForm({locale,product}:{locale:Locale;product:Prod
   }catch{setError(t.inquiryError);}finally{setSending(false);}
  }
  const field='mt-2 w-full rounded-xl border border-zinc-700 bg-black px-4 py-3 text-white';
- if(reference)return <section role="status" className="rounded-2xl border border-orange-500 p-6"><h2 className="text-2xl font-black">{t.saved}</h2><p className="mt-4 text-zinc-400">{t.reference}</p><p className="mt-2 break-all font-mono text-sm text-orange-500">{reference}</p><p className="mt-4 leading-7 text-zinc-400">{t.savedNote}</p><div className="mt-6 flex flex-wrap gap-4"><a href={`/${locale}/contact`}  className="rounded-lg bg-orange-500 px-5 py-3 font-bold text-black">{t.zalo} ↗</a><button type="button" onClick={()=>{setReference('');requestId.current='';previousPayload.current='';}} className="rounded-lg border border-zinc-700 px-5 py-3">{t.newInquiry}</button></div></section>;
+ if(reference)return <section role="status" className="rounded-2xl border border-orange-500 p-6"><h2 className="text-2xl font-black">{t.saved}</h2><p className="mt-4 text-zinc-400">{t.reference}</p><p className="mt-2 break-all font-mono text-sm text-orange-500">{reference}</p><p className="mt-4 leading-7 text-zinc-400">{t.savedNote}</p><div className="mt-6 flex flex-wrap gap-4"><ZaloChatButton/><button type="button" onClick={()=>{setReference('');requestId.current='';previousPayload.current='';}} className="rounded-lg border border-zinc-700 px-5 py-3">{t.newInquiry}</button></div></section>;
  return <form onSubmit={submit} className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 md:p-8">
  {product&&<div className="mb-6 border-b border-zinc-800 pb-6"><p className="text-sm font-bold text-orange-500">{product.partNumber}</p><p className="mt-2 font-bold">{localized(product,locale)}</p></div>}
  <fieldset disabled={sending} className="space-y-5"><div className="grid gap-5 sm:grid-cols-2"><label className="block text-sm">{t.name}<input name="name" autoComplete="name" minLength={2} maxLength={100} required className={field}/></label><label className="block text-sm">{t.phone}<input name="phone" type="tel" autoComplete="tel" maxLength={25} required pattern="[+0-9() -]{9,25}" className={field}/></label></div>

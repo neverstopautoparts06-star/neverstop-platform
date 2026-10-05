@@ -1,3 +1,4 @@
+import BrandIcon from './brand-icon';
 import {useId} from 'react';
 export default function SocialIcon({name}:{name:string}) {
  const gradientId=useId();
@@ -9,5 +10,5 @@ export default function SocialIcon({name}:{name:string}) {
  }
  if(name==='Instagram')return <svg {...common}><defs><radialGradient id={gradientId} cx="25%" cy="100%" r="120%"><stop offset="0%" stopColor="#FFDC80"/><stop offset="25%" stopColor="#FCAF45"/><stop offset="50%" stopColor="#F56040"/><stop offset="70%" stopColor="#C13584"/><stop offset="100%" stopColor="#5851DB"/></radialGradient></defs><rect width="24" height="24" rx="6" fill={`url(#${gradientId})`}/><g fill="none" stroke="#fff" strokeWidth="1.7"><rect x="4.5" y="4.5" width="15" height="15" rx="4.2"/><circle cx="12" cy="12" r="3.6"/></g><circle cx="17" cy="7" r="1" fill="#fff"/></svg>;
  if(name==='YouTube')return <svg {...common} fill="#FF0033"><path d="M21.6 6.3c-.3-1.1-1.1-1.9-2.2-2.1C17.5 3.7 12 3.7 12 3.7s-5.5 0-7.4.5C3.5 4.4 2.7 5.2 2.4 6.3 2 8.2 2 12 2 12s0 3.8.4 5.7c.3 1.1 1.1 1.9 2.2 2.1 1.9.5 7.4.5 7.4.5s5.5 0 7.4-.5c1.1-.2 1.9-1 2.2-2.1.4-1.9.4-5.7.4-5.7s0-3.8-.4-5.7z"/><path d="m10 8 6 4-6 4z" fill="#fff"/></svg>;
- return <svg {...common} viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#0068FF"/><path d="M8 7h32a5 5 0 0 1 5 5v23a5 5 0 0 1-5 5H19l-9 5v-5H8a5 5 0 0 1-5-5V12a5 5 0 0 1 5-5z" fill="#fff"/><text x="24" y="28" textAnchor="middle" fill="#0068FF" fontSize="14" fontFamily="Arial,sans-serif" fontWeight="700">Zalo</text></svg>;
+ return <BrandIcon name={name==='WhatsApp'?'WhatsApp':'Zalo'} size={36}/>;
 }
