@@ -1,22 +1,24 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { dictionary, locales, type Locale } from '@/lib/i18n';
-export default function SiteHeader({ locale }: { locale: Locale }) {
-  const t = dictionary(locale); const pathname = usePathname(); const [open, setOpen] = useState(false);
-  const nav = [[`/${locale}`, t.home], [`/${locale}/products`, t.products], [`/${locale}#vehicle-search`, t.vehicleSearch], [`/${locale}/contact`, t.contact]];
-  function switchLanguage(next: Locale) {
-    const path = pathname.replace(/^\/(vi|en|zh)(?=\/|$)/, '/' + next);
-    window.location.assign(path + window.location.search + window.location.hash);
-  }
-  return <header className="border-b border-zinc-800 bg-black text-white">
-    <a href="#main" className="sr-only focus:not-sr-only focus:block focus:p-4">{t.skip}</a>
-    <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-      <Link href={`/${locale}`} aria-label="NEVERSTOP Auto Parts"><span className="block text-lg font-black tracking-[.22em] text-orange-500">NEVERSTOP</span><span className="block text-[10px] tracking-[.24em] text-zinc-500">FACTORY STORE</span></Link>
-      <nav aria-label={t.menu} className="hidden gap-6 text-sm text-zinc-300 lg:flex">{nav.map(([href,label]) => <Link key={href} href={href} className="hover:text-orange-500">{label}</Link>)}</nav>
-      <div className="flex items-center gap-3"><div className="flex gap-2 text-sm" aria-label="Language">{locales.map((lang) => <button key={lang} type="button" onClick={() => switchLanguage(lang)} aria-pressed={lang === locale} lang={lang} className={lang === locale ? 'font-bold text-orange-500' : 'text-zinc-400 hover:text-white'}>{lang === 'zh' ? '中文' : lang.toUpperCase()}</button>)}</div><button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-nav" className="rounded-lg border border-zinc-700 px-3 py-2 text-sm lg:hidden">{t.menu}</button><Link href={`/${locale}/contact`} className="hidden rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-black sm:inline-block">{t.quote}</Link></div>
-      {open && <nav id="mobile-nav" aria-label={t.menu} className="flex w-full flex-col gap-1 border-t border-zinc-800 pt-3 lg:hidden">{nav.map(([href,label]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 hover:bg-zinc-900">{label}</Link>)}</nav>}
-    </div>
-  </header>;
+import {usePathname} from 'next/navigation';
+import {useEffect,useRef,useState,useSyncExternalStore} from 'react';
+import {locales,type Locale} from '@/lib/i18n';
+import {headerCopy,languageNames,languageCodes} from '@/lib/header-copy';
+import {socialLinks} from '@/lib/social-config';
+import SocialIcon from './social-icon';
+import ZaloVideoIcon from './zalo-video-icon';
+import './header.css';
+const subscribeHash=(notify:()=>void)=>{window.addEventListener('hashchange',notify);window.addEventListener('popstate',notify);return()=>{window.removeEventListener('hashchange',notify);window.removeEventListener('popstate',notify);};};
+export default function SiteHeader({locale}:{locale:Locale}){
+ const t=headerCopy[locale],pathname=usePathname();
+ const [open,setOpen]=useState(false),[languages,setLanguages]=useState(false);
+ const languageRegion=useRef<HTMLDivElement>(null),languageTrigger=useRef<HTMLButtonElement>(null),mobileTrigger=useRef<HTMLButtonElement>(null);
+ const hash=useSyncExternalStore(subscribeHash,()=>window.location.hash,()=>'');
+ useEffect(()=>{function outside(e:PointerEvent){if(!languageRegion.current?.contains(e.target as Node))setLanguages(false);}function escape(e:KeyboardEvent){if(e.key==='Escape'){if(languages){setLanguages(false);languageTrigger.current?.focus();}if(open){setOpen(false);mobileTrigger.current?.focus();}}}document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};},[languages,open]);
+ const nav=[{href:`/${locale}`,label:t.home,key:'home'},{href:`/${locale}/products`,label:t.products,key:'products'},{href:`/${locale}#vehicle-search`,label:t.vehicle,key:'vehicle'},{href:`/${locale}/contact`,label:t.contact,key:'contact'},{href:`/${locale}/orders`,label:t.orders,key:'orders'}];
+ function active(key:string){if(key==='vehicle')return pathname===`/${locale}`&&hash==='#vehicle-search';if(key==='home')return pathname===`/${locale}`&&hash!=='#vehicle-search';return pathname===`/${locale}/${key}`||pathname.startsWith(`/${locale}/${key}/`);}
+ function switchLanguage(next:Locale){setLanguages(false);setOpen(false);const path=pathname.replace(/^\/(vi|en|zh|ar|es|pt)(?=\/|$)/,'/'+next);window.location.assign(path+window.location.search+window.location.hash);}
+ const navigation=nav.map(n=><Link key={n.key} href={n.href} className={active(n.key)?'active':''} aria-current={active(n.key)?'page':undefined} onClick={()=>{setOpen(false);if(n.key==='vehicle')setTimeout(()=>window.dispatchEvent(new Event('hashchange')),0);}}>{n.label}</Link>);
+ const socials=<div className="header-socials" aria-label={t.social}><span role="img" aria-label={t.videoPending} title={t.videoPending} data-unavailable="true"><ZaloVideoIcon/></span>{socialLinks.map(s=><a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name} title={s.name}><SocialIcon name={s.name}/></a>)}<span role="img" aria-label={`YouTube · ${t.pending}`} title={`YouTube · ${t.pending}`} data-unavailable="true"><SocialIcon name="YouTube"/></span></div>;
+ return <header className="site-header"><a className="sr-only focus:not-sr-only" href="#main">{t.skip}</a><div className="header-inner"><Link href={`/${locale}`} className="header-brand" aria-label="NEVERSTOP Auto Parts" dir="ltr"><strong>NEVERSTOP</strong><small>{t.brandLine}</small></Link><nav className="desktop-nav" aria-label={t.menu}>{navigation}</nav><div className="header-tools"><div className="header-international" ref={languageRegion}><div className="header-languages"><span>🌐 {t.language}:</span>{(['vi','en','zh'] as const).map(l=><button key={l} className={locale===l?'active':''} aria-pressed={locale===l} lang={l} onClick={()=>switchLanguage(l)}>{languageCodes[l]}</button>)}<button ref={languageTrigger} aria-label={t.language} aria-expanded={languages} aria-controls="language-options" className={['ar','es','pt'].includes(locale)?'active':''} onClick={()=>setLanguages(v=>!v)}>▾</button></div>{socials}{languages&&<div className="language-dropdown" id="language-options" aria-label={t.language}>{locales.map(l=><button key={l} lang={l} dir={l==='ar'?'rtl':'ltr'} className={locale===l?'active':''} aria-pressed={locale===l} onClick={()=>switchLanguage(l)}><span>{languageCodes[l]} · {languageNames[l]}</span>{locale===l&&<span>✓</span>}</button>)}</div>}</div><button ref={mobileTrigger} className="mobile-menu-trigger" aria-expanded={open} aria-controls="mobile-nav" onClick={()=>setOpen(v=>!v)}>{t.menu}</button><Link className="header-quote" href={`/${locale}/contact`}>{t.quote}</Link></div></div>{open&&<div className="header-mobile-panel" id="mobile-nav"><nav aria-label={t.menu}>{navigation}</nav><p>{t.language}</p><div className="mobile-languages">{locales.map(l=><button key={l} lang={l} aria-pressed={locale===l} className={locale===l?'active':''} onClick={()=>switchLanguage(l)}>{languageNames[l]} {locale===l?'✓':''}</button>)}</div>{socials}</div>}</header>;
 }
