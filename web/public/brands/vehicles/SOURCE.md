@@ -1,2 +1,3 @@
 Sources: https://github.com/vehiclespecs/brand-logos (downloaded 2026-10-06). Logos are trademarks of their respective owners, used only for vehicle identification; no affiliation or endorsement implied. Repository metadata is MIT licensed, logo trademarks remain with owners. No logos were redrawn.
 Ford and VinFast SVGs: https://github.com/diegojasso/car-logos-SVG/tree/main/logos (downloaded 2026-10-06). All eight displayed logos use SVG.
+Reference-layout assets added 2026-10-06 from the same two documented repositories. Original brand artwork retained; SVG preferred, some supplied raster marks retained with contain sizing.
