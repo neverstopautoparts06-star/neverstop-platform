@@ -49,3 +49,7 @@ next-env.d.ts
 
 # Generated Prisma client
 src/generated/prisma/
+
+# Local commerce demo only
+.local-commerce-db/
+docs/local-demo.json

@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NEVERSTOP Web
 
-## Getting Started
+Next.js 16 + React 19 + Prisma 7 + PostgreSQL。使用 Node.js 24 和 pnpm 11.19，依赖锁定在 `pnpm-lock.yaml`。原 `package-lock.json` 保留但未更新，不要对本分支运行 `npm ci`。
 
-First, run the development server:
+## 本地演示（新数据库）
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+在 `web/` 目录执行：
+
+```sh
+pnpm install --frozen-lockfile
+pnpm setup:local
+pnpm exec prisma generate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+另一个终端运行 `pnpm db:local`，保持开启。随后回到原终端执行：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+pnpm exec prisma migrate deploy
+pnpm exec prisma db seed
+pnpm dev:local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+首页 http://127.0.0.1:3006/zh，后台 http://127.0.0.1:3006/admin/quotes。
+本机密码在 `.env.local` 的 `ADMIN_PASSWORD`。不要分享或提交此文件。`setup:local` 不覆盖已有配置。
+首次 seed 仅用于全新开发库，不能代表正式产品/库存。`.local-commerce-db` 为持久化本地演示数据目录，勿删除或覆盖运行中的数据库。
+已有本地演示库可直接 `node scripts/preview-local.mjs` 启动数据库及网站。
 
-## Learn More
+## 现有 PostgreSQL / Codespaces
 
-To learn more about Next.js, take a look at the following resources:
+沿用既有 DATABASE_URL 和数据库卷，不运行 seed，不 reset。先备份并检查 `prisma migrate status`，保留 `20261003144305_init`，审核新增的 `20261005000100_quote_checkout_v1` 后再 migrate deploy。原 Docker 配置仍保留。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+配置模板为 `.env.example`。默认关闭 MOCK；本地演示需 PAYMENT_PROVIDER=MOCK、ENABLE_MOCK_PAYMENTS=true。生产始终禁止模拟付款。未来真实支付必须实现提供商适配器，不能仅填写密钥就收款。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 验证
 
-## Deploy on Vercel
+```sh
+pnpm typecheck
+pnpm lint
+pnpm build
+# 仅本地测试数据库和已运行的开发服务器：
+pnpm test:commerce
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+成交测试会创建标记 TEST 的记录，不用于生产。52 项接口检查、并发幂等、数据库重启持久化和生产 MOCK 禁用已在本机验证；这不是生产收款验收。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+完整业务与 API 说明见 [commerce-v1.md](docs/commerce-v1.md)。Zalo 在 `src/lib/zalo-config.ts` 读取配置；社媒账号在 `src/lib/social-config.ts`；图标在 `src/components/social-icon.tsx`。

@@ -1,0 +1,7 @@
+'use client';
+import Link from 'next/link';
+import {useState} from 'react';
+import {post,formatMoney} from './common';
+import {ZaloChatButton} from '@/components/zalo-contact';
+import type {getPayment} from '@/lib/commerce/service';
+export default function PaymentClient({p,mock}:{p:Awaited<ReturnType<typeof getPayment>>;mock:boolean}){const [error,setError]=useState(''),[busy,setBusy]=useState(false);const allowed=p.status==='PENDING'&&p.quoteStatus==='PAYMENT_PENDING';return <><header><Link href="/vi">NEVERSTOP FACTORY STORE</Link><a href={'/q/'+p.quoteToken}>Báo giá</a></header><h1>THANH TOÁN QR</h1><p>{p.quoteNumber}</p><p className="total">{formatMoney(p.amount)}</p><p>Trạng thái: {p.status}</p><div className="test"><strong>TEST MODE · PAYMENT PROVIDER NOT CONNECTED</strong><p>Không chuyển tiền. Đây chỉ là mô phỏng, không phải mã QR thanh toán.</p></div><div className="qr-placeholder">QR PLACEHOLDER<br/>KHÔNG THU TIỀN</div>{p.orderToken?<a className="action" href={'/order/'+p.orderToken}>Xem đơn hàng</a>:allowed&&mock?<button disabled={busy} onClick={async()=>{setBusy(true);try{const r=await post(`/api/payments/${p.paymentToken}/simulate`,{});location.href='/order/'+r.orderToken;}catch(e){setError((e as Error).message);setBusy(false);}}}>SIMULATE PAYMENT SUCCESS</button>:<p>Thanh toán không khả dụng. Vui lòng liên hệ NEVERSTOP.</p>}{error&&<p role="alert" className="error">{error}</p>}<p><a href={'/q/'+p.quoteToken}>Quay lại báo giá / Chọn COD</a></p><ZaloChatButton customerType={p.customerType} label="Liên hệ lại qua Zalo"/></>;}

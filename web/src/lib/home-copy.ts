@@ -1,0 +1,32 @@
+export const homeCopy = {
+ vi: {
+ tag:'GIẢM XÓC Ô TÔ · CỬA HÀNG NHÀ MÁY', title:'Từ nhà máy.', accent:'Đến từng hành trình.',
+ intro:'Giảm xóc NEVERSTOP. Xem sản phẩm thực tế, đối chiếu mã phụ tùng và trao đổi trực tiếp với đội ngũ tại Hà Nội.',
+ explore:'Khám phá sản phẩm', visit:'Ghé cửa hàng Hà Nội', directions:'Chỉ đường', call:'Gọi ngay',
+ productTag:'01 / SẢN PHẨM', productTitle:'Chi tiết tạo nên khác biệt.', productBody:'Khám phá giảm xóc và các chi tiết hoàn thiện qua hình ảnh sản phẩm thực tế.',
+ front:'Giảm xóc trước', rear:'Giảm xóc sau', details:'Cận cảnh sản phẩm', check:'Xác nhận mã phù hợp qua Zalo',
+ popularTag:'02 / DÒNG XE PHỔ BIẾN', popularTitle:'Bắt đầu từ chiếc xe của bạn.', popularBody:'Chọn dòng xe để tra cứu. Đời xe, mã OEM và tồn kho cần được xác nhận trước khi đặt hàng.',
+ sceneTag:'HỆ THỐNG TREO', sceneTitle:'Kết nối chiếc xe với mặt đường.', sceneBody:'Từ đi làm hằng ngày đến những chuyến đi xa, lựa chọn giảm xóc bắt đầu bằng việc xác định đúng dòng xe và vị trí lắp đặt.', sceneCta:'Tư vấn cho xe của bạn',
+ processTag:'03 / BÊN TRONG NEVERSTOP', processTitle:'Từ xưởng sản xuất đến cửa hàng.', processBody:'Hình ảnh từ nhà máy, kiểm tra sản phẩm và hoạt động giao hàng của NEVERSTOP.',
+ stages:['Nhà máy','Kho hàng','Kiểm tra chất lượng','Đóng gói & giao hàng'], stageBodies:['Một góc hoạt động sản xuất.','Sản phẩm và hàng hóa trong kho.','Kiểm tra giảm xóc trên thiết bị thử.','Chuẩn bị sản phẩm trước khi giao.'],
+ socialTitle:'Theo dõi NEVERSTOP.', socialBody:'Sản phẩm, câu chuyện nhà máy và hoạt động tại Việt Nam.', pending:'Đang cập nhật',
+ contactTitle:'Gặp chúng tôi tại Hà Nội.', contactBody:'Mang theo mã OEM, ảnh phụ tùng hoặc thông tin xe. Chúng tôi hỗ trợ bạn đối chiếu sản phẩm.',
+ real:'Ảnh sản phẩm thực tế', reference:'Toyota Camry ACV40 · Hình ảnh tham khảo', factory:'Cửa hàng nhà máy',
+ },
+ en: {
+ tag:'SHOCK ABSORBERS · FACTORY STORE',title:'From our factory.',accent:'For your journey.',intro:'NEVERSTOP shock absorbers. Explore real products, match part numbers and speak directly with our team in Hanoi.',explore:'Explore products',visit:'Visit our Hanoi store',directions:'Get directions',call:'Call us',
+ productTag:'01 / THE PRODUCTS',productTitle:'A closer look at every detail.',productBody:'Explore our shock absorbers and their finish through real product photography.',front:'Front shock absorbers',rear:'Rear shock absorbers',details:'Product close-up',check:'Confirm fitment on Zalo',
+ popularTag:'02 / POPULAR VEHICLES',popularTitle:'Start with your vehicle.',popularBody:'Choose a model to search. Confirm the year, OEM number and availability before ordering.',
+ sceneTag:'THE SUSPENSION SYSTEM',sceneTitle:'Your connection to the road.',sceneBody:'From everyday commutes to longer journeys, choosing a shock absorber starts with the right vehicle and fitting position.',sceneCta:'Discuss your vehicle',
+ processTag:'03 / INSIDE NEVERSTOP',processTitle:'From the workshop to the store.',processBody:'A look at NEVERSTOP production, product inspection and dispatch.',stages:['Factory','Warehouse','Quality inspection','Packing & dispatch'],stageBodies:['A glimpse of production.','Products and stock in the warehouse.','Shock absorbers on the test equipment.','Preparing products for delivery.'],
+ socialTitle:'Follow NEVERSTOP.',socialBody:'Products, factory stories and life at our Vietnam store.',pending:'Coming soon',contactTitle:'Meet us in Hanoi.',contactBody:'Bring your OEM number, a part photo or your vehicle details. We will help you identify the right product.',real:'Real product photography',reference:'Toyota Camry ACV40 · Reference image',factory:'Factory store',
+ },
+ zh: {
+ tag:'汽车减震器 · NEVERSTOP 工厂店',title:'从工厂出发，',accent:'为每一程而来。',intro:'NEVERSTOP 汽车减震器。查看真实产品、核对配件编号，与河内门店团队直接沟通。',explore:'探索产品',visit:'河内门店',directions:'地图导航',call:'拨打电话',
+ productTag:'01 / 产品特写',productTitle:'细节，看得见。',productBody:'通过产品实拍，近距离了解减震器与工艺细节。',front:'前减震器',rear:'后减震器',details:'产品细节',check:'通过 Zalo 确认适配',
+ popularTag:'02 / 热门车型',popularTitle:'从你的车型开始。',popularBody:'选择车型进入查询。购买前请确认年份、OEM 编号及实际库存。',
+ sceneTag:'汽车悬架系统',sceneTitle:'连接车辆与路面。',sceneBody:'从日常通勤到长途行驶，选择减震器从确认车型与安装位置开始。',sceneCta:'咨询车型适配',
+ processTag:'03 / 走进 NEVERSTOP',processTitle:'从生产车间，到门店。',processBody:'查看 NEVERSTOP 生产、产品检测与发货的真实场景。',stages:['工厂生产','仓库备货','质量检测','打包发货'],stageBodies:['走进真实的生产现场。','产品仓储与备货场景。','减震器性能检测现场。','产品发出前的准备工作。'],
+ socialTitle:'关注 NEVERSTOP。',socialBody:'产品展示、工厂日常与越南门店动态。',pending:'账号待补充',contactTitle:'欢迎来到河内门店。',contactBody:'带上 OEM 编号、配件照片或车辆信息，让我们一起核对适配产品。',real:'真实产品摄影',reference:'Toyota Camry ACV40 · 车型示意',factory:'工厂店',
+ }
+};

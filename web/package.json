@@ -9,16 +9,26 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "prebuild": "prisma generate",
-    "test:catalog": "tsx scripts/test-catalog.ts"
+    "test:catalog": "tsx scripts/test-catalog.ts",
+    "test:website": "tsx scripts/test-website.ts",
+    "dev:local": "next dev --webpack --hostname 127.0.0.1 --port 3006",
+    "db:local": "node scripts/local-db.mjs",
+    "setup:local": "node scripts/prepare-local.mjs",
+    "test:commerce": "node --env-file=.env.local --import tsx scripts/test-commerce.ts"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@electric-sql/pglite-socket": "^0.2.11",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
+    "dotenv": "^18.0.5",
     "next": "16.3.8",
     "pg": "^8.23.1",
     "prisma": "^7.10.0",
+    "qrcode": "^1.5.4",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -31,5 +41,6 @@
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@11.19.0"
 }

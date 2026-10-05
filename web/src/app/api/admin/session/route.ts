@@ -1,0 +1,6 @@
+import {cookies} from 'next/headers';
+import {api,body,equal,sameOrigin,sign} from '@/lib/commerce/security';
+import {CommerceError} from '@/lib/commerce/validation';
+const attempts=new Map<string,{count:number;until:number}>();
+export async function POST(request:Request){return api(async()=>{sameOrigin(request);const key='login';const a=attempts.get(key);if(a&&a.until>Date.now()&&a.count>=10)throw new CommerceError(429,'Vui lòng thử lại sau 15 phút.');const data=await body(request);const expected=process.env.ADMIN_PASSWORD;if(!expected||expected.length<16)throw new CommerceError(503,'Admin chưa được cấu hình.');if(typeof data.password!=='string'||!equal(data.password,expected)){attempts.set(key,{count:a&&a.until>Date.now()?a.count+1:1,until:Date.now()+900000});throw new CommerceError(401,'Mật khẩu không đúng.');}attempts.delete(key);const expiry=String(Date.now()+8*3600000);(await cookies()).set('ns_admin',`${expiry}.${sign(expiry)}`,{httpOnly:true,secure:process.env.NODE_ENV==='production',sameSite:'strict',path:'/',maxAge:8*3600});return {ok:true};});}
+export async function DELETE(request:Request){return api(async()=>{sameOrigin(request);(await cookies()).delete('ns_admin');return {ok:true};});}

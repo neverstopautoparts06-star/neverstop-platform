@@ -1,0 +1,4 @@
+'use client';
+import {useState} from 'react';
+import {post} from './common';
+export default function Login(){const [error,setError]=useState(''),[busy,setBusy]=useState(false);return <form className="panel" onSubmit={async e=>{e.preventDefault();setBusy(true);setError('');try{await post('/api/admin/session',{password:new FormData(e.currentTarget).get('password')});location.href='/admin/quotes';}catch(e){setError((e as Error).message);setBusy(false);}}}><h1>Đăng nhập quản lý báo giá</h1><label>Mật khẩu quản trị<input type="password" name="password" required autoComplete="current-password"/></label>{error&&<p role="alert" className="error">{error}</p>}<button disabled={busy}>Đăng nhập</button><p className="muted">Khu vực nội bộ NEVERSTOP. Khách hàng không cần đăng nhập để xem báo giá.</p></form>;}

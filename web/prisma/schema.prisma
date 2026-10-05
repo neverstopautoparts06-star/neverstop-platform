@@ -64,6 +64,9 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
+  COD
+  MOCK_QR
+  PAYOS
   BANK_TRANSFER
   VIETQR
   ZALOPAY
@@ -174,6 +177,7 @@ model Product {
   fitments     ProductFitment[]
   inventory    InventoryBalance[]
   inquiryItems InquiryItem[]
+  quoteItems   QuoteItem[]
   orderItems   OrderItem[]
 
   createdAt DateTime @default(now())
@@ -315,8 +319,18 @@ model InquiryItem {
 }
 
 model Order {
-  id          String @id @default(cuid())
-  orderNumber String @unique
+  quoteId               String?        @unique
+  quote                 Quote?         @relation(fields: [quoteId], references: [id])
+  publicToken           String?        @unique
+  customerType          CustomerType?
+  discount              Decimal        @default(0) @db.Decimal(14, 0)
+  warrantyTermsSnapshot String?
+  vehicleInfo           String?
+  city                  String?
+  paymentMethod         PaymentMethod?
+  inventoryTask         InventoryTask?
+  id                    String         @id @default(cuid())
+  orderNumber           String         @unique
 
   customerId String?
   customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
@@ -344,9 +358,15 @@ model Order {
 }
 
 model OrderItem {
-  id        String @id @default(cuid())
-  orderId   String
-  productId String
+  partNumber  String?
+  productName String?
+  oeNumber    String?
+  vehicleInfo String?
+  axle        InstallAxle?
+  side        InstallSide?
+  id          String       @id @default(cuid())
+  orderId     String
+  productId   String
 
   quantity  Int
   unitPrice Decimal @db.Decimal(14, 0)
@@ -359,8 +379,14 @@ model OrderItem {
 }
 
 model Payment {
-  id      String @id @default(cuid())
-  orderId String
+  id                String    @id @default(cuid())
+  quoteId           String?   @unique
+  quote             Quote?    @relation(fields: [quoteId], references: [id])
+  publicToken       String?   @unique
+  provider          String?
+  providerPaymentId String?   @unique
+  paidAt            DateTime?
+  orderId           String?
 
   method PaymentMethod
   status PaymentStatus @default(PENDING)
@@ -375,11 +401,95 @@ model Payment {
   confirmedBy  String?
   internalNote String?
 
-  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order Order? @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([orderId])
   @@index([paymentReference])
+}
+
+enum CustomerType {
+  B2B
+  B2C
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  PAYMENT_PENDING
+  PAID
+  COD_CONFIRMED
+  EXPIRED
+  CANCELLED
+}
+
+model Quote {
+  id                    String       @id @default(cuid())
+  quoteNumber           String       @unique
+  publicToken           String       @unique
+  customerType          CustomerType
+  customerName          String
+  phone                 String
+  zalo                  String?
+  city                  String?
+  address               String?
+  vehicleBrand          String?
+  vehicleModel          String?
+  vehicleYear           String?
+  vehicleCode           String?
+  subtotal              Decimal      @db.Decimal(14, 0)
+  shippingFee           Decimal      @default(0) @db.Decimal(14, 0)
+  discount              Decimal      @default(0) @db.Decimal(14, 0)
+  totalAmount           Decimal      @db.Decimal(14, 0)
+  status                QuoteStatus  @default(DRAFT)
+  validUntil            DateTime
+  warrantyTermsSnapshot String
+  customerNote          String?
+  internalNote          String?
+  codEligible           Boolean      @default(false)
+  onlinePaymentEnabled  Boolean      @default(false)
+  acceptedAt            DateTime?
+  revisionOfId          String?
+  revisionOf            Quote?       @relation("QuoteRevision", fields: [revisionOfId], references: [id])
+  revisions             Quote[]      @relation("QuoteRevision")
+  items                 QuoteItem[]
+  order                 Order?
+  payment               Payment?
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+
+  @@index([status, customerType, createdAt])
+}
+
+model QuoteItem {
+  id          String       @id @default(cuid())
+  quoteId     String
+  quote       Quote        @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product      @relation(fields: [productId], references: [id])
+  partNumber  String
+  productName String
+  oeNumber    String?
+  vehicleInfo String?
+  axle        InstallAxle?
+  side        InstallSide?
+  quantity    Int
+  unitPrice   Decimal      @db.Decimal(14, 0)
+  lineTotal   Decimal      @db.Decimal(14, 0)
+
+  @@index([quoteId])
+}
+
+// Durable hand-off: stock is not deducted until the existing fulfilment process
+// explicitly handles this task. No new reservation algorithm is imposed here.
+model InventoryTask {
+  id          String    @id @default(cuid())
+  orderId     String    @unique
+  order       Order     @relation(fields: [orderId], references: [id])
+  status      String    @default("PENDING_REVIEW")
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
 }
