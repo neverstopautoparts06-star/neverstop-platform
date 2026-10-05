@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { dictionary, type Locale } from '@/lib/i18n';
 import type { ProductResults, VehicleBrand } from '@/lib/catalog-types';
 import ProductCard from './product-card';
+import BrandLogoWall from './brand-logo-wall';
 import {ZaloChatButton} from './zalo-contact';
 const field='w-full rounded-xl border border-zinc-700 bg-black px-4 py-4 text-white disabled:opacity-40';
 export default function VehicleSearch({locale,showAll=false,compact=false}:{locale:Locale;showAll?:boolean;compact?:boolean}) {
@@ -64,6 +65,7 @@ export default function VehicleSearch({locale,showAll=false,compact=false}:{loca
         {results&&<div className="mt-10"><h2 className="text-2xl font-black">{t.results}</h2>{!results.data.length?<p className="mt-4 text-zinc-400">{t.noResults}</p>:<div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{results.data.map(product=><ProductCard key={product.id} product={product} locale={locale}/>)}</div>}{(results.page>1||results.hasMore)&&<div className="mt-6 flex items-center gap-4"><button className="rounded-lg border border-zinc-700 px-4 py-2 disabled:opacity-40" disabled={results.page===1} onClick={()=>paginate(results.page-1)}>{t.previous}</button><span>{t.page} {results.page}</span><button className="rounded-lg border border-zinc-700 px-4 py-2 disabled:opacity-40" disabled={!results.hasMore} onClick={()=>paginate(results.page+1)}>{t.next}</button></div>}</div>}
       </div>
     </div></section>
+    {compact&&<BrandLogoWall locale={locale} brands={brands} state={vehicleState} selectedId={brandId} onSelect={id=>{setSearchMode('vehicle');setBrandId(id);setModelId('');setYear('');setVariantId('');document.getElementById('vehicle-search')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});}}/>}
     {!showAll&&!compact&&<section className="bg-white px-6 py-20 text-black"><div className="mx-auto max-w-7xl"><div className="mb-10"><p className="text-sm font-bold tracking-[.22em] text-orange-500">{t.popular}</p><h2 className="mt-3 text-3xl font-black md:text-4xl">{t.quickLookup}</h2><p className="mt-3 text-zinc-500">{t.quickHint}</p></div><div className="grid grid-cols-2 gap-4 md:grid-cols-4">{brands.flatMap(b=>b.models.filter(m=>m.variants.length).map(m=><button key={m.id} onClick={()=>{setBrandId(b.id);setModelId(m.id);setYear('');setVariantId('');document.getElementById('vehicle-search')?.scrollIntoView({behavior:'smooth'});}} className="rounded-2xl border border-zinc-200 bg-white p-6 text-left hover:border-orange-500"><div className="text-xs font-bold tracking-[.18em] text-zinc-400">{t.model}</div><div className="mt-8 text-lg font-black">{b.name} {m.name}</div><div className="mt-3 text-sm font-bold text-orange-500">{t.selectYearCode}</div></button>))}</div></div></section>}
   </>;
 }

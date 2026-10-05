@@ -1,0 +1,17 @@
+.factory-home .vehicle-brand-wall{margin:16px -17px -13px;padding:20px 12px 8px;background:#111211;color:#d1d3cb;border-top:1px solid #35392e}
+.brand-wall-heading{display:flex;align-items:baseline;gap:20px;justify-content:space-between;margin-bottom:12px}
+.factory-home .brand-wall-heading h2{font-size:14px;line-height:1.5;letter-spacing:.06em;font-weight:700;color:#e8e9e1}
+.factory-home .brand-wall-heading p,.factory-home .brand-wall-hint{font-size:11px;line-height:1.6;color:#a1a69a}
+.brand-wall-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px 16px}
+.brand-wall-item{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90px;padding:8px 2px;border:0;border-bottom:1px solid transparent;background:transparent;cursor:pointer;gap:3px;color:#d3d6cc}
+.brand-logo-frame{display:flex;align-items:center;justify-content:center;width:100%;height:36px}
+.brand-logo-frame img{width:88px;height:36px;max-width:100%;object-fit:contain;filter:grayscale(1) invert(1);transition:filter 200ms,opacity 200ms;opacity:.65}
+.brand-logo-frame strong{font-size:15px}.brand-wall-name{font-size:11px}.brand-wall-item small{font-size:9px;color:#939b8a}
+.brand-wall-item:hover,.brand-wall-item[aria-pressed=true]{border-bottom-color:var(--gold)}
+.brand-wall-item:hover img,.brand-wall-item[aria-pressed=true] img{filter:grayscale(1) invert(1);opacity:1}
+.brand-wall-item:focus-visible,.brand-wall-more:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.factory-home .brand-wall-hint{margin-top:10px}.factory-home .brand-wall-notice{font-size:12px;color:var(--gold);margin-top:6px}.brand-wall-notice:empty{display:none}
+.brand-wall-more{font-size:12px;color:var(--gold);padding:8px 0;margin-top:6px;cursor:pointer}.brand-wall-more.mobile-only{display:none}
+.brand-wall-grid:not(.is-expanded) .brand-extra-desktop{display:none}
+@media(max-width:760px){.brand-wall-heading{display:block}.factory-home .brand-wall-heading p{margin-top:4px}.brand-wall-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px 8px}.brand-logo-frame img{width:64px;height:30px}.brand-wall-item{min-height:82px}.brand-wall-grid:not(.is-expanded) .brand-extra-mobile{display:none}.brand-wall-more.mobile-only{display:inline-block}.factory-home .vehicle-brand-wall{padding:16px 0 4px}.brand-wall-item small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.brand-logo-frame img{transition:none}}
