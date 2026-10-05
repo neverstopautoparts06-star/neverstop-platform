@@ -10,3 +10,8 @@
 html[dir=rtl] body{text-align:right}html[dir=rtl] .header-socials{direction:rtl}html[dir=rtl] .factory-hero>.hero-copy{align-items:flex-start}html[dir=rtl] .zalo-card{text-align:right}html[dir=rtl] .zalo-close{float:left}html[dir=rtl] .zalo-floating{right:auto;left:18px}html[dir=rtl] .photo-caption{direction:ltr}html[dir=rtl] input[type=search],html[dir=rtl] .zalo-number{direction:ltr;text-align:left}html[dir=rtl] .hero-contacts a{direction:rtl}
 
 html[dir=rtl] .break-all,html[dir=rtl] .font-mono{direction:ltr;unicode-bidi:isolate;text-align:start}
+
+/* Shared outer edges for header content, hero image and finder. */
+:root{--site-content-max:1544px;--site-content-gutter:28px}
+.site-header .header-inner{width:calc(100% - 2 * var(--site-content-gutter));max-width:var(--site-content-max);padding-inline:0}
+@media(max-width:760px){:root{--site-content-gutter:16px}}
