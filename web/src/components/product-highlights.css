@@ -12,3 +12,9 @@
 .product-highlights .highlight-controls{margin-top:6px}
 .factory-home .product-highlights+.vehicle-showcase{padding-top:16px}
 .product-highlights+.vehicle-showcase .vehicle-section-heading{margin-bottom:14px}
+
+/* Remove the sales row; keep carousel controls over the media. */
+.product-highlights{position:relative}
+.product-highlights .highlight-controls{position:absolute;right:42px;bottom:68px;margin:0;z-index:2}
+.product-highlights .highlight-navigation{background:#f4f3edef;border-radius:20px;padding:0 6px;box-shadow:0 1px 6px #0001}
+@media(max-width:760px){.product-highlights .highlight-controls{right:24px;bottom:68px}}
