@@ -61,3 +61,7 @@
 .store-contact .zalo-qr p{font-size:9px!important;margin-top:4px!important}
 .store-contact .overseas-card{grid-template-columns:1fr}
 @media(max-width:760px){.factory-home .store-contact{padding:22px 20px}.store-contact .store-top{gap:14px;margin-bottom:16px}.store-contact .storefront-photo{height:140px}.store-contact .store-welcome h2{font-size:23px}.store-contact .zalo-grid{gap:8px}.store-contact .zalo-card{padding:11px 12px}.store-contact .overseas-card{grid-template-rows:12px minmax(21px,auto) minmax(22px,auto) 22px 32px}}
+
+/* Give the storefront a natural photograph ratio without enlarging contact cards. */
+.store-contact .storefront-photo{width:100%;max-width:400px;justify-self:center;height:auto;aspect-ratio:16/9}
+@media(max-width:760px){.store-contact .storefront-photo{max-width:360px;height:auto;aspect-ratio:16/9}}
