@@ -8,4 +8,13 @@ const entries=[
  {brand:'Hyundai',model:'Grand i10',zh:'现代 Grand i10',position:'50% 100%'},
  {brand:'Kia',model:'Morning',zh:'起亚 Morning',position:'100% 100%'}
 ];
-export const popularVehicles=entries.map(v=>({...v,vehicleName:`${v.brand} ${v.model}`,localizedName:{zh:v.zh,vi:`${v.brand} ${v.model}`,en:`${v.brand} ${v.model}`},vehicleImage:'/images/vehicles/scene-atlas.webp',vehicleImageSize:'300% 200%',shockImage:'/images/vehicles/shock-placeholder.webp',href:`/products?q=${encodeURIComponent(v.model)}&search=1`,temporary:true}));
+const additionalEntries=[
+ {brand:'Mitsubishi',model:'Xpander',zh:'三菱 Xpander',position:'0% 0%'},
+ {brand:'Ford',model:'Ranger',zh:'福特 Ranger',position:'100% 0%'},
+ {brand:'Hyundai',model:'Santa Fe',zh:'现代 Santa Fe',position:'0% 100%'},
+ {brand:'Ford',model:'Territory',zh:'福特 Territory',position:'100% 100%'}
+];
+export const popularVehicles=[
+ ...entries.map(v=>({...v,vehicleImage:'/images/vehicles/scene-atlas.webp',vehicleImageSize:'300% 200%',sceneHeight:'84%',sceneTop:'0%'})),
+ ...additionalEntries.map(v=>({...v,vehicleImage:'/images/vehicles/extra-scenes.webp',vehicleImageSize:'200% 200%',sceneHeight:'54%',sceneTop:'10%'}))
+].map(v=>({...v,vehicleName:`${v.brand} ${v.model}`,localizedName:{zh:v.zh,vi:`${v.brand} ${v.model}`,en:`${v.brand} ${v.model}`},shockImage:'/images/vehicles/shock-placeholder.webp',href:`/products?q=${encodeURIComponent(v.model)}&search=1`,temporary:true}));
