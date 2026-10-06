@@ -5,7 +5,7 @@ import SocialStrip from './social-strip';
 import {HeroContacts} from './zalo-contact';
 import BrandIcon from './brand-icon';
 import '@/app/factory.css';
-import Link from 'next/link';
+import ProductHighlights from './product-highlights';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import type { Locale } from '@/lib/i18n';
@@ -17,7 +17,7 @@ export default function FactoryHome({locale}:{locale:Locale}) {
  return <main id="main" className="factory-home">
 
  <section className="factory-hero"><div className="hero-copy"><p className="eyebrow">{c.tag}</p><h1>{c.title}</h1><p className="hero-value">{c.accent}</p><p className="hero-intro">{c.intro}</p></div><div className="hero-photo"><Image src="/images/camry-shocks.jpg" alt={`${c.front} NEVERSTOP Toyota Camry ACV40`} fill priority sizes="(max-width: 760px) 100vw, 55vw"/><span className="photo-label">SHOCK ABSORBERS / NEVERSTOP</span><div className="photo-caption"><span>{c.real}</span><b>01 — 04</b></div></div><HeroContacts locale={locale}/><div className="hero-bottom"><div className="compact-finder hero-finder"><Suspense fallback={<p>…</p>}><VehicleSearch locale={locale} compact/></Suspense></div></div></section>
- <section className="home-section product-section"><div className="section-top"><div><p className="eyebrow">{c.productTag}</p><h2>{c.productTitle}</h2></div><p>{c.productBody}</p></div><div className="product-editorial"><Link href={`/${locale}/products?axle=FRONT`} className="product-feature"><div className="product-image"><Image src="/images/camry-shocks.jpg" alt={c.front} fill sizes="(max-width:760px) 100vw, 60vw"/></div><div className="product-meta"><div><span>NEVERSTOP / SHOCK ABSORBER</span><h3>{c.front}</h3></div><b>↗</b></div></Link><div className="product-side"><Link href={`/${locale}/products`}><div className="detail-image"><Image src="/images/shock-detail.jpg" alt={c.details} fill sizes="(max-width:760px) 100vw, 35vw"/></div><div className="product-meta"><div><span>NEVERSTOP / COLLECTION</span><h3>{c.details}</h3></div><b>↗</b></div></Link><a className="fitment-note" href="#contact">{c.check}<span>↗</span></a></div></div></section>
+ <ProductHighlights locale={locale}/>
  <PopularVehicles locale={locale}/>
  <section className="home-section process-section"><div className="section-top"><div><p className="eyebrow">{c.processTag}</p><h2>{c.processTitle}</h2></div><p>{c.processBody}</p></div><div className="process-grid">{['factory','warehouse','quality','shipping'].map((name,i)=><article key={name}><div className="process-image"><Image src={`/images/${name}.jpg`} alt={c.stages[i]} fill sizes="(max-width:760px) 50vw, 25vw"/><span>0{i+1}</span></div><h3>{c.stages[i]}</h3><p>{c.stageBodies[i]}</p></article>)}</div></section>
  <SocialStrip locale={locale}/>
