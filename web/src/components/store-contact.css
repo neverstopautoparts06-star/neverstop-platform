@@ -35,3 +35,29 @@
 @media(max-width:760px){.factory-home .store-contact{padding:28px 20px}.store-contact .store-top{grid-template-columns:1fr;gap:20px;margin-bottom:22px}.store-contact .store-welcome h2{font-size:27px}.storefront-photo{height:auto;aspect-ratio:16/9}.storefront-placeholder{min-height:190px}.store-address address{margin:12px 0}.store-contact .zalo-grid{grid-template-columns:1fr;gap:12px}.store-contact .zalo-card{grid-template-columns:minmax(0,1fr) 86px;min-height:216px;padding:14px;column-gap:12px}.store-contact .overseas-card{grid-template-columns:1fr}.store-contact .zalo-qr img{width:86px;height:86px}.store-contact .zalo-card h3{font-size:16px!important}}
 @media(min-width:761px){.storefront-photo{height:auto;aspect-ratio:16/9}}
 .store-contact .zalo-card,.store-contact .overseas-card{grid-template-rows:16px minmax(26px,auto) 34px 26px 40px 20px}
+
+/* Compact contact section, without changing contact or QR destinations. */
+.factory-home .store-contact{padding-top:22px;padding-bottom:22px}
+.store-contact .store-top{gap:20px;margin-bottom:14px}
+.store-contact .storefront-photo{height:150px;aspect-ratio:auto}
+.store-contact .storefront-placeholder{min-height:0;padding:12px}
+.store-contact .storefront-placeholder>span{font-size:25px}
+.store-contact .store-welcome .eyebrow{margin-bottom:8px}
+.store-contact .store-welcome h2{font-size:24px}
+.store-contact .store-welcome>p:not(.eyebrow){font-size:12px;line-height:1.5;margin-top:9px}
+.store-contact .store-address h3{font-size:21px}
+.store-contact .store-address address{font-size:12px;line-height:1.5;margin:10px 0}
+.store-contact .store-channels>h2{font-size:20px!important}
+.store-contact .store-channels>p:not(.zalo-kicker){font-size:11px;margin-top:4px!important}
+.store-contact .zalo-grid{gap:12px;margin-top:10px}
+.store-contact .zalo-card{min-height:0;padding:12px;grid-template-columns:minmax(0,1fr) 72px;grid-template-rows:12px minmax(21px,auto) minmax(22px,auto) 22px 32px 14px;row-gap:2px;column-gap:10px}
+.store-contact .zalo-card .zalo-badge{font-size:8px;line-height:12px}
+.store-contact .zalo-card h3{font-size:14px!important;line-height:1.25}
+.store-contact .zalo-card>p{font-size:9px!important;line-height:1.3}
+.store-contact .zalo-card .zalo-number{font-size:16px!important}
+.store-contact .zalo-card .zalo-cta{font-size:11px;min-height:30px;padding:4px 8px}
+.store-contact .zalo-card .zalo-cta img{width:19px!important;height:19px!important}
+.store-contact .zalo-qr img{width:72px;height:72px;padding:3px}
+.store-contact .zalo-qr p{font-size:9px!important;margin-top:4px!important}
+.store-contact .overseas-card{grid-template-columns:1fr}
+@media(max-width:760px){.factory-home .store-contact{padding:22px 20px}.store-contact .store-top{gap:14px;margin-bottom:16px}.store-contact .storefront-photo{height:140px}.store-contact .store-welcome h2{font-size:23px}.store-contact .zalo-grid{gap:8px}.store-contact .zalo-card{padding:11px 12px}.store-contact .overseas-card{grid-template-rows:12px minmax(21px,auto) minmax(22px,auto) 22px 32px}}
