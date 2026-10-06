@@ -17,3 +17,17 @@
 @media(max-width:1000px){.vehicle-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vehicle-section-heading{align-items:start}.factory-home .vehicle-section-heading h2{font-size:40px}}
 @media(max-width:600px){.factory-home .vehicle-showcase{padding:38px 20px}.vehicle-section-heading{display:block;margin-bottom:22px}.factory-home .vehicle-section-heading h2{font-size:34px}.factory-home .vehicle-section-label{font-size:22px}.vehicle-section-heading>p{margin-top:14px;font-size:12px}.vehicle-card-grid{grid-template-columns:1fr;gap:18px}.factory-home .vehicle-card-info h3{font-size:20px}}
 @media(prefers-reduced-motion:reduce){.vehicle-visual-card,.vehicle-scene,.vehicle-card-arrow{transition:none}.vehicle-visual-card:hover .vehicle-scene{transform:none}}
+
+/* Ten popular models in two compact desktop rows. */
+@media(min-width:1001px){
+ .vehicle-card-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+ .vehicle-card-info{bottom:10px;inset-inline-start:10px;width:68%;gap:4px}
+ .factory-home .vehicle-card-info h3{font-size:clamp(12px,1.05vw,16px);line-height:1.15}
+ .factory-home .vehicle-card-info p{font-size:9px;margin-top:3px}
+ .vehicle-card-arrow{font-size:18px;flex-shrink:0}
+ .vehicle-shock-zone{padding:8px 5px 6px 9px}
+ .factory-home .vehicle-showcase{padding-top:36px;padding-bottom:32px}
+ .vehicle-section-heading{margin-bottom:20px}
+ .factory-home .vehicle-section-heading h2{font-size:clamp(32px,3vw,42px)}
+ .factory-home .vehicle-section-label{font-size:20px;margin-bottom:7px}
+}
