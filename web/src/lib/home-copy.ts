@@ -1,5 +1,6 @@
 export const homeCopy = {
  vi: {
+ productName:'Giảm xóc ô tô', certification:'Chứng nhận chất lượng TS16949', customBrand:'Hỗ trợ tùy chỉnh thương hiệu', customShock:'Nhận tùy chỉnh giảm xóc độ có thể điều chỉnh',
  tag:'GIẢM XÓC Ô TÔ · CỬA HÀNG NHÀ MÁY', title:'Trực tiếp từ nhà máy', accent:'Thông số tiêu chuẩn · Bền bỉ ổn định · Bảo hành đảm bảo',
  intro:'Giảm xóc NEVERSTOP. Xem sản phẩm thực tế, đối chiếu mã phụ tùng và trao đổi trực tiếp với đội ngũ tại Hà Nội.',
  explore:'Khám phá sản phẩm', visit:'Ghé cửa hàng Hà Nội', directions:'Chỉ đường', call:'Gọi ngay',
@@ -14,6 +15,7 @@ export const homeCopy = {
  real:'Ảnh sản phẩm thực tế', reference:'Toyota Camry ACV40 · Hình ảnh tham khảo', factory:'Cửa hàng nhà máy',
  },
  en: {
+ productName:'Automotive shock absorbers', certification:'TS16949 quality certification', customBrand:'Private-label customization', customShock:'Custom adjustable performance shock absorbers',
  tag:'SHOCK ABSORBERS · FACTORY STORE',title:'Factory direct',accent:'Standard specifications · Lasting reliability · Warranty support',intro:'NEVERSTOP shock absorbers. Explore real products, match part numbers and speak directly with our team in Hanoi.',explore:'Explore products',visit:'Visit our Hanoi store',directions:'Get directions',call:'Call us',
  productTag:'01 / THE PRODUCTS',productTitle:'A closer look at every detail.',productBody:'Explore our shock absorbers and their finish through real product photography.',front:'Front shock absorbers',rear:'Rear shock absorbers',details:'Product close-up',check:'Contact us to confirm fitment',
  popularTag:'02 / POPULAR VEHICLES',popularTitle:'Start with your vehicle.',popularBody:'Choose a model to search. Confirm the year, OEM number and availability before ordering.',
@@ -22,6 +24,7 @@ export const homeCopy = {
  socialTitle:'Follow NEVERSTOP.',socialBody:'Products, factory stories and life at our Vietnam store.',pending:'Coming soon',contactTitle:'Meet us in Hanoi.',contactBody:'Bring your OEM number, a part photo or your vehicle details. We will help you identify the right product.',real:'Real product photography',reference:'Toyota Camry ACV40 · Reference image',factory:'Factory store',
  },
  zh: {
+ productName:'汽车减震器', certification:'TS16949 质量认证', customBrand:'支持品牌定制', customShock:'支持可调节改装减震器定制',
  tag:'汽车减震器 · NEVERSTOP 工厂店',title:'工厂直供',accent:'标准参数 · 耐久稳定 · 售后保障',intro:'NEVERSTOP 汽车减震器。查看真实产品、核对配件编号，与河内门店团队直接沟通。',explore:'探索产品',visit:'河内门店',directions:'地图导航',call:'拨打电话',
  productTag:'01 / 产品特写',productTitle:'细节，看得见。',productBody:'通过产品实拍，近距离了解减震器与工艺细节。',front:'前减震器',rear:'后减震器',details:'产品细节',check:'联系销售确认适配',
  popularTag:'02 / 热门车型',popularTitle:'从你的车型开始。',popularBody:'选择车型进入查询。购买前请确认年份、OEM 编号及实际库存。',

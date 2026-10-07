@@ -138,3 +138,24 @@
 .factory-home .process-grid p{font-size:11px;line-height:1.5;margin-top:6px}
 .process-section .process-image span{padding:7px 10px;font-size:10px}
 @media(max-width:760px){.factory-home .process-section{padding-top:26px;padding-bottom:26px}.factory-home .process-section h2{font-size:27px}.process-section .section-top>p{margin-top:10px}.process-section .process-grid{gap:20px 14px}.process-section .process-image{height:130px}.factory-home .process-grid h3{font-size:15px;margin-top:9px}}
+
+/* Product-led factory introduction with paired contact channels. */
+.factory-hero>.hero-copy{padding-top:28px;padding-bottom:18px}
+.factory-hero>.hero-copy h1{font-size:clamp(30px,3vw,44px);line-height:1.12;color:#f5f3ed}
+.hero-product-brand{display:block;font-size:.58em;letter-spacing:.06em;color:var(--gold);margin-bottom:6px}
+.factory-home .hero-direct{font-size:18px;font-weight:750;color:var(--gold);margin-top:12px}
+.factory-home .hero-value{font-size:15px;margin-top:6px}
+.factory-home .hero-intro{font-size:12px;line-height:1.6;margin-top:10px;max-width:460px}
+.hero-factory-proof{margin-top:16px;width:100%}
+.hero-credentials{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;color:#eee;font-size:12px}
+.hero-credentials b{font-size:20px;color:var(--gold);letter-spacing:.02em}
+.hero-factory-proof ul{display:flex;flex-wrap:wrap;gap:6px 18px;padding:0;margin:10px 0 0;list-style:none;color:#b8b9b2;font-size:12px}
+.hero-factory-proof li:before{content:'✓';color:var(--gold);margin-inline-end:6px}
+.factory-hero>.hero-contacts{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding-top:12px;padding-bottom:22px;align-self:end}
+.factory-hero>.hero-contacts>a,.factory-hero>.hero-contacts>a:last-child{min-width:0;align-items:flex-start;gap:8px;min-height:58px}
+.factory-hero>.hero-contacts>a>span{min-width:0}
+.factory-hero>.hero-contacts strong{font-size:11px;line-height:1.4}
+.factory-hero>.hero-contacts small{font-size:9px;line-height:1.4}
+.factory-hero>.hero-contacts .hero-contact-number{font-size:11px;overflow-wrap:anywhere}
+.hero-email-icon{width:24px;height:24px;flex-shrink:0;color:var(--gold)}
+@media(max-width:760px){.factory-hero>.hero-copy{padding-top:22px;padding-bottom:20px}.factory-hero>.hero-copy h1{font-size:34px}.factory-hero>.hero-contacts{padding:20px 0;gap:14px 12px}.hero-credentials{gap:8px 14px}.hero-factory-proof ul{display:grid;gap:7px}.factory-hero>.hero-contacts strong{font-size:11px}.factory-hero>.hero-contacts .hero-contact-number{font-size:10px}}
