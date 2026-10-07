@@ -73,3 +73,11 @@
 .store-contact .store-email-card .zalo-cta{grid-column:1;grid-row:5;justify-self:start}
 @media(max-width:1100px){.store-contact .zalo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.store-contact .zalo-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Keep the photo on the page centerline and balance both text columns. */
+.store-contact .store-top{grid-template-columns:minmax(0,1fr) minmax(0,400px) minmax(0,1fr);gap:clamp(20px,3vw,40px)}
+.store-contact .store-welcome{width:100%;max-width:320px;min-width:0;justify-self:center}
+.store-contact .store-welcome>p:not(.eyebrow){max-width:none}
+.store-contact .store-address{width:fit-content;max-width:100%;min-width:0;justify-self:center}
+@media(min-width:761px) and (max-width:1100px){.store-contact .store-top{grid-template-columns:minmax(0,1fr) minmax(0,320px) minmax(0,1fr);gap:20px}.store-contact .store-welcome h2{font-size:22px}.store-contact .store-address .button{white-space:normal;text-align:start}}
+@media(max-width:760px){.store-contact .store-top{grid-template-columns:minmax(0,1fr);gap:14px}.store-contact .store-welcome,.store-contact .store-address{width:100%;max-width:none;justify-self:stretch}}
