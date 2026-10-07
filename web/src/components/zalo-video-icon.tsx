@@ -1,3 +1,2 @@
-import BrandIcon from './brand-icon';
-// Use the official Zalo platform mark; the Video profile URL is still pending.
-export default function ZaloVideoIcon(){return <BrandIcon name="Zalo" size={30}/>;}
+/** Official asset from https://zalo.me/en/ (Zalo Video product logo). */
+export default function ZaloVideoIcon(){return <img className="zalo-video-icon" src="/brands/zalo-video.webp" width={30} height={30} alt="" aria-hidden="true" style={{objectFit:'contain'}}/>;}

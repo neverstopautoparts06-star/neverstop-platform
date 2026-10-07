@@ -16,12 +16,12 @@ export const homeCopy = {
  },
  en: {
  productName:'Automotive shock absorbers', certification:'TS16949 quality certification', customBrand:'Private-label customization', customShock:'Custom adjustable performance shock absorbers',
- tag:'SHOCK ABSORBERS · FACTORY STORE',title:'Factory direct',accent:'Standard specifications · Lasting reliability · Warranty support',intro:'NEVERSTOP shock absorbers. Explore real products, match part numbers and speak directly with our team in Hanoi.',explore:'Explore products',visit:'Visit our Hanoi store',directions:'Get directions',call:'Call us',
+ tag:'SHOCK ABSORBERS · FACTORY-DIRECT',title:'Factory direct',accent:'Standard specifications · Lasting reliability · Warranty support',intro:'NEVERSTOP shock absorbers. Explore real products, match part numbers and speak directly with our team in Hanoi.',explore:'Explore products',visit:'Visit our Hanoi store',directions:'Get directions',call:'Call us',
  productTag:'01 / THE PRODUCTS',productTitle:'A closer look at every detail.',productBody:'Explore our shock absorbers and their finish through real product photography.',front:'Front shock absorbers',rear:'Rear shock absorbers',details:'Product close-up',check:'Contact us to confirm fitment',
  popularTag:'02 / POPULAR VEHICLES',popularTitle:'Start with your vehicle.',popularBody:'Choose a model to search. Confirm the year, OEM number and availability before ordering.',
  sceneTag:'THE SUSPENSION SYSTEM',sceneTitle:'Your connection to the road.',sceneBody:'From everyday commutes to longer journeys, choosing a shock absorber starts with the right vehicle and fitting position.',sceneCta:'Discuss your vehicle',
  processTag:'03 / INSIDE NEVERSTOP',processTitle:'From the workshop to the store.',processBody:'A look at NEVERSTOP production, product inspection and dispatch.',stages:['Factory','Warehouse','Quality inspection','Packing & dispatch'],stageBodies:['A glimpse of production.','Products and stock in the warehouse.','Shock absorbers on the test equipment.','Preparing products for delivery.'],
- socialTitle:'Follow NEVERSTOP.',socialBody:'Products, factory stories and life at our Vietnam store.',pending:'Coming soon',contactTitle:'Meet us in Hanoi.',contactBody:'Bring your OEM number, a part photo or your vehicle details. We will help you identify the right product.',real:'Real product photography',reference:'Toyota Camry ACV40 · Reference image',factory:'Factory store',
+ socialTitle:'Follow NEVERSTOP.',socialBody:'Products, factory stories and life at our Vietnam store.',pending:'Coming soon',contactTitle:'Meet us in Hanoi.',contactBody:'Bring your OEM number, a part photo or your vehicle details. We will help you identify the right product.',real:'Real product photography',reference:'Toyota Camry ACV40 · Reference image',factory:'Factory-direct',
  },
  zh: {
  productName:'汽车减震器', certification:'TS16949 质量认证', customBrand:'支持品牌定制', customShock:'支持可调节改装减震器定制',
