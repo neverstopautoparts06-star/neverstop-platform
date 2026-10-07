@@ -17,3 +17,22 @@ html[dir=rtl] .break-all,html[dir=rtl] .font-mono{direction:ltr;unicode-bidi:iso
 @media(max-width:760px){:root{--site-content-gutter:16px}}
 
 .header-socials>span:has(.contact-brand-icon){opacity:1;filter:none}
+
+/* A single language control gives the right-hand tools room to breathe. */
+.site-header .header-tools{gap:24px}
+.header-international{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.header-languages{gap:0}
+.site-header .language-trigger{display:inline-flex;align-items:center;gap:9px;padding:6px 10px;min-height:34px;font-size:13px;line-height:1.3;border:1px solid #343a31;border-radius:5px;background:#141813;color:#eceee7}
+.language-flag{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:20px;line-height:1;width:24px}
+.language-chevron{font-size:16px;color:#b3bbac;margin-inline-start:5px}
+.header-international .header-socials{margin:0;gap:12px}
+.header-international .header-socials>a,.header-international .header-socials>span{width:22px;height:22px}
+.header-international .header-socials svg,.header-international .header-socials img{width:20px!important;height:20px!important}
+.language-dropdown{width:218px;top:calc(100% + 14px);padding:6px}
+.language-dropdown button{min-height:44px;padding:9px 10px;font-size:13px;border:0}
+.language-dropdown button.active{background:#252b20}
+.language-option{display:flex;align-items:center;gap:11px}
+.language-check{font-size:14px;margin-inline-start:auto}
+@media(min-width:1000px) and (max-width:1350px){.site-header .header-tools{gap:18px}.header-international .header-socials{gap:10px}}
+@media(max-width:999px){.header-international{display:none}.site-header .header-tools{gap:8px}.mobile-languages{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}.mobile-languages button{display:flex;align-items:center;gap:8px;min-height:42px;padding:8px 6px;border-radius:4px}.mobile-languages button.active{background:#20261c;border:0}.mobile-languages .language-flag{font-size:19px;width:23px}}
+@media(max-width:400px){.site-header .header-tools{gap:5px}}

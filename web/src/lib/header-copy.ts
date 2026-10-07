@@ -1,5 +1,6 @@
 import type {Locale} from './i18n';
 export const languageNames={vi:'Tiếng Việt',en:'English',zh:'中文',ar:'العربية',es:'Español',pt:'Português'};
+export const languageFlags={vi:'🇻🇳',en:'🇬🇧',zh:'🇨🇳',ar:'🇸🇦',es:'🇪🇸',pt:'🇵🇹'} satisfies Record<Locale,string>;
 export const languageCodes={vi:'VI',en:'EN',zh:'中文',ar:'العربية',es:'ES',pt:'PT'};
 export const headerCopy={
  zh:{home:'首页',products:'产品',vehicle:'按车型查找',contact:'联系我们',orders:'我的订单',language:'语言',quote:'询价',menu:'菜单',skip:'跳至正文',social:'社媒快捷入口',pending:'链接待确认',videoPending:'Zalo Video 链接待确认',empty:'通过专属链接查看订单',orderHint:'请使用 NEVERSTOP 发给您的专属订单链接查看订单。此页面暂未提供订单汇总。',brandLine:'FACTORY-DIRECT · CHINA | VIETNAM'},
