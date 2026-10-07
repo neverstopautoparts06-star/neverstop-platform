@@ -65,3 +65,11 @@
 /* Give the storefront a natural photograph ratio without enlarging contact cards. */
 .store-contact .storefront-photo{width:100%;max-width:400px;justify-self:center;height:auto;aspect-ratio:16/9}
 @media(max-width:760px){.store-contact .storefront-photo{max-width:360px;height:auto;aspect-ratio:16/9}}
+
+/* Email is a peer channel beside WhatsApp, scoped to the store module. */
+.store-contact .zalo-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.store-contact .store-email-card{grid-template-columns:minmax(0,1fr)}
+.store-contact .store-email-address{grid-column:1;grid-row:4;align-self:center;font-size:12px;font-weight:650;color:#f5f3ed;overflow-wrap:anywhere;line-height:1.4}
+.store-contact .store-email-card .zalo-cta{grid-column:1;grid-row:5;justify-self:start}
+@media(max-width:1100px){.store-contact .zalo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.store-contact .zalo-grid{grid-template-columns:minmax(0,1fr)}}
