@@ -190,3 +190,13 @@
 .factory-hero>.hero-contacts .hero-contact-number{font-size:10px;color:#c7ccc1;margin-top:4px}
 .factory-hero>.hero-contacts .contact-brand-icon,.factory-hero>.hero-contacts .hero-email-icon{width:22px!important;height:22px!important;margin-top:2px}
 @media(max-width:760px){.factory-hero>.hero-copy{padding:26px 20px 24px}.factory-hero>.hero-copy .eyebrow{font-size:14px;margin-bottom:14px}.factory-hero>.hero-copy h1{font-size:38px}.factory-home .hero-value{font-size:13px;gap:5px 0}.hero-value>span:not(:last-child):after{margin-inline:7px}.hero-factory-proof{margin-top:22px}.hero-credentials{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.hero-credentials b{font-size:25px}.hero-factory-proof ul{grid-template-columns:minmax(0,1fr);gap:7px;font-size:12px}.hero-factory-proof li{padding-inline:0;text-align:start}.factory-hero>.hero-contacts{margin:0 20px;padding:20px 0;gap:18px 12px;border-top:0}}
+
+/* Use the header's content edges across the homepage, keeping backgrounds full width. */
+.factory-home{--home-content-inset:max(var(--site-content-gutter),calc((100vw - var(--site-content-max))/2))}
+.factory-home .factory-hero>.hero-copy{padding-inline-start:var(--home-content-inset)}
+.factory-home .factory-hero>.hero-contacts{margin-inline-start:var(--home-content-inset)}
+.factory-home .factory-hero .hero-finder{padding-inline:0;border-inline-width:0}
+.factory-home .hero-finder #vehicle-search{padding-inline:var(--home-content-inset)}
+.factory-home .hero-finder #vehicle-search>div{max-width:none}
+.factory-home .hero-finder .vehicle-brand-wall{margin-inline:0;padding-inline:var(--home-content-inset)}
+.factory-home>section.home-section,.factory-home>section.social-section{padding-inline:var(--home-content-inset)}
