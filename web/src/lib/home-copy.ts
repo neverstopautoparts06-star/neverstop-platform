@@ -25,7 +25,7 @@ export const homeCopy = {
  },
  zh: {
  productName:'汽车减震器', certification:'TS16949 质量认证', customBrand:'支持品牌定制', customShock:'支持可调节改装减震器定制',
- tag:'汽车减震器 · NEVERSTOP 工厂店',title:'工厂直供',accent:'标准参数 · 耐久稳定 · 售后保障',intro:'NEVERSTOP 汽车减震器。查看真实产品、核对配件编号，与河内门店团队直接沟通。',explore:'探索产品',visit:'河内门店',directions:'地图导航',call:'拨打电话',
+ tag:'汽车减震器 · 工厂店',title:'工厂直供',accent:'标准参数 · 耐久稳定 · 售后保障',intro:'NEVERSTOP 汽车减震器。查看真实产品、核对配件编号，与河内门店团队直接沟通。',explore:'探索产品',visit:'河内门店',directions:'地图导航',call:'拨打电话',
  productTag:'01 / 产品特写',productTitle:'细节，看得见。',productBody:'通过产品实拍，近距离了解减震器与工艺细节。',front:'前减震器',rear:'后减震器',details:'产品细节',check:'联系销售确认适配',
  popularTag:'02 / 热门车型',popularTitle:'从你的车型开始。',popularBody:'选择车型进入查询。购买前请确认年份、OEM 编号及实际库存。',
  sceneTag:'汽车悬架系统',sceneTitle:'连接车辆与路面。',sceneBody:'从日常通勤到长途行驶，选择减震器从确认车型与安装位置开始。',sceneCta:'咨询车型适配',

@@ -159,3 +159,10 @@
 .factory-hero>.hero-contacts .hero-contact-number{font-size:11px;overflow-wrap:anywhere}
 .hero-email-icon{width:24px;height:24px;flex-shrink:0;color:var(--gold)}
 @media(max-width:760px){.factory-hero>.hero-copy{padding-top:22px;padding-bottom:20px}.factory-hero>.hero-copy h1{font-size:34px}.factory-hero>.hero-contacts{padding:20px 0;gap:14px 12px}.hero-credentials{gap:8px 14px}.hero-factory-proof ul{display:grid;gap:7px}.factory-hero>.hero-contacts strong{font-size:11px}.factory-hero>.hero-contacts .hero-contact-number{font-size:10px}}
+
+/* Edge-to-edge hero and finder with comfortable inset for copy only. */
+.factory-home .factory-hero{width:100%;max-width:none;margin-inline:0}
+.factory-hero>.hero-copy,.factory-hero>.hero-contacts{padding-inline-start:var(--site-content-gutter)}
+.factory-hero>.hero-bottom{padding-inline:0}
+.factory-hero .hero-finder{border-radius:0}
+@media(max-width:760px){.factory-hero>.hero-copy,.factory-hero>.hero-contacts{padding-inline:var(--site-content-gutter)}}
