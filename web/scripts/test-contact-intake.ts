@@ -5,7 +5,7 @@ import {contactIntakeCopy} from '../src/lib/contact-intake-copy';
 import {contactMessage,contactDestination,customerKindLabel,customerKinds,salesCustomerType,publicSourcePath} from '../src/lib/contact-intake';
 import {contactLeadSchema,contactReference,decodeContactLead,encodeContactLead,type ContactLeadInput} from '../src/lib/contact-leads';
 import {notifyContactLead,whatsappNotificationConfig} from '../src/lib/contact-notification';
-import {zaloChannels} from '../src/lib/zalo-config';
+import {zaloChannels,whatsappChannel} from '../src/lib/zalo-config';
 import {prisma} from '../src/lib/prisma';
 
 const empty={region:'',vehicle:'',year:'',product:'',name:'',phone:'',quantity:''};
@@ -31,13 +31,16 @@ async function run(){
   for(const kind of customerKinds){
    const input=fixture(kind),message=contactMessage(kind,'WHATSAPP',locale,empty,{partNumber:'TEST-ONLY'},'CTC-TEST','/zh/products/test-only');
    for(const label of [customerKindLabel(kind,locale),t.region,t.vehicle,t.year,t.product,'CTC-TEST','TEST-ONLY'])assert.ok(message.includes(label));
-   assert.equal(new URL(contactDestination('WHATSAPP',kind,message,'CTC-TEST')).searchParams.get('text'),message);
+   const whatsapp=new URL(contactDestination('WHATSAPP',kind,message,'CTC-TEST'));
+   assert.equal(whatsapp.searchParams.get('text'),message);
+   const configuredWhatsapp=new URL(whatsappChannel.url);
+   assert.equal(whatsapp.origin+whatsapp.pathname,configuredWhatsapp.origin+configuredWhatsapp.pathname,'All customer types must open the same WhatsApp account.');
    assert.equal(contactDestination('ZALO',kind,message,'CTC-TEST'),zaloChannels[salesCustomerType(kind)].url);
    const email=new URL(contactDestination('EMAIL',kind,message,'CTC-TEST'));assert.equal(email.protocol,'mailto:');assert.equal(email.searchParams.get('body'),message);assert.ok(!email.href.includes('+'),'Mailto spaces must be encoded as %20, not form-style plus signs.');
    assert.equal(decodeContactLead(encodeContactLead(input,{status:'NOT_CONFIGURED'}))?.customerKind,kind);
   }
  }
- assert.equal(salesCustomerType('GARAGE'),'B2B');assert.equal(salesCustomerType('OWNER'),'B2C');
+ assert.equal(salesCustomerType('DEALER'),'B2B');assert.equal(salesCustomerType('GARAGE'),'B2B');assert.equal(salesCustomerType('OWNER'),'B2C');
  assert.equal(publicSourcePath('/order/private-access-token?x=1'),'/order');assert.equal(publicSourcePath('/q/private-access-token'),'/q');assert.equal(publicSourcePath('//evil.example'),'/');assert.equal(publicSourcePath('/zh/products/test?token=private'),'/zh/products/test');
  assert.equal(decodeContactLead('regular inquiry notes'),null);
  assert.ok(!contactLeadSchema.safeParse({...fixture(),details:{...empty,phone:'-------'}}).success);
@@ -71,10 +74,22 @@ async function run(){
   }
   for(const locale of locales){for(const suffix of ['', '/contact','/products/2025-d641-302f']){
    const response=await fetch(`${base}/${locale}${suffix}`);assert.equal(response.status,200);const html=await response.text();assert.ok(html.includes('data-contact-intake='));for(const kind of customerKinds)assert.ok(html.includes(customerKindLabel(kind,locale)));
-   // The only outbound messaging links appear after a recorded type selection, not in server HTML.
-   assert.ok(!/href="(?:https:\/\/(?:wa\.me|zalo\.me\/0)|mailto:)/.test(html));
+   const dialogs=html.match(/<dialog\b[^>]*class="contact-intake"[^>]*>[\s\S]*?<\/dialog>/g)||[];
+   assert.ok(dialogs.length,'Contact entries must include the customer chooser.');
+   for(const dialog of dialogs){
+    assert.ok(!/<(?:form|input|textarea|fieldset)\b/.test(dialog),'The chooser must not contain a form or a second confirmation screen.');
+    const choices=[...dialog.matchAll(/<a\b[^>]*class="contact-intake-choice"[^>]*>/g)].map(match=>match[0]);
+    assert.equal(choices.length,3);
+    for(const kind of customerKinds){
+     const choice=choices.find(value=>value.includes(`data-customer-kind="${kind}"`));assert.ok(choice);
+     const href=choice.match(/href="([^"]+)"/)?.[1]?.replaceAll('&amp;','&');assert.ok(href);
+     if(choice.includes('data-contact-channel="ZALO"'))assert.equal(href,zaloChannels[salesCustomerType(kind)].url);
+     else if(choice.includes('data-contact-channel="WHATSAPP"')){const url=new URL(href);const original=new URL(whatsappChannel.url);assert.equal(url.origin+url.pathname,original.origin+original.pathname);assert.ok(url.searchParams.get('text')?.includes(customerKindLabel(kind,locale)));}
+     else {const url=new URL(href);assert.equal(url.protocol,'mailto:');assert.ok(url.searchParams.get('body')?.includes(customerKindLabel(kind,locale)));}
+    }
+   }
   }}
-  console.log('PASS: lead persistence and update, concurrent retry deduplication, stage protection, validation and origin checks, protected admin, quotation prefill and six-language contact entry points');
+  console.log('PASS: lead persistence and update, concurrent retry deduplication, stage protection, validation and origin checks, protected admin, quotation prefill and direct three-choice contact links without forms in six languages');
  }finally{await prisma.inquiry.deleteMany({where:{inquiryNumber:{in:references}}});await prisma.$disconnect();}
 }
 run().catch(error=>{console.error(error instanceof assert.AssertionError?error.message:'Contact intake check failed');process.exitCode=1;});
