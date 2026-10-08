@@ -1,9 +1,14 @@
-import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
-import { dictionary, isLocale } from '@/lib/i18n';
-import VehicleSearch from '@/components/vehicle-search';
-export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;return isLocale(locale)?{title:dictionary(locale).products}:{};}
-export default async function Products({params}:{params:Promise<{locale:string}>}) {
- const {locale}=await params;if(!isLocale(locale))notFound();const t=dictionary(locale);
- return <main id="main"><div className="mx-auto max-w-7xl px-6 py-14"><p className="text-sm font-bold tracking-widest text-orange-500">NEVERSTOP</p><h1 className="mt-3 text-4xl font-black">{t.productHeading}</h1><p className="mt-4 max-w-2xl text-zinc-400">{t.productIntro}</p></div><Suspense fallback={<p className="p-6">{t.loadingProducts}</p>}><VehicleSearch locale={locale} showAll/></Suspense></main>;
+import {notFound} from 'next/navigation';
+import {isLocale} from '@/lib/i18n';
+import {productCenterCopy} from '@/lib/product-center-copy';
+import ProductCenter,{type ProductCenterQuery} from '@/components/product-center';
+export async function generateMetadata({params}:{params:Promise<{locale:string}>}) {
+ const {locale}=await params;
+ return isLocale(locale)?{title:productCenterCopy(locale).title,description:productCenterCopy(locale).intro}:{};
+}
+export default async function Products({params,searchParams}:{params:Promise<{locale:string}>;searchParams:Promise<Record<string,string|string[]|undefined>>}) {
+ const {locale}=await params;if(!isLocale(locale))notFound();
+ const values=await searchParams,query:ProductCenterQuery={};
+ for(const key of ['q','brandId','modelId','variantId','year','axle','page','search','mode'] as const){const value=values[key];if(typeof value==='string')query[key]=value;}
+ return <ProductCenter key={JSON.stringify(query)} locale={locale} query={query} localPreview={process.env.LOCAL_CATALOG_PREVIEW==='1'}/>;
 }
