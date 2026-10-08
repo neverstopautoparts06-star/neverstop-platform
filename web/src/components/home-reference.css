@@ -25,7 +25,7 @@ body:has(.home-reference){display:flex;flex-direction:column}body:has(.home-refe
 @media(max-width:480px){.home-ref-hero{height:510px}.home-ref-hero-copy h1{font-size:34px}.home-ref-hero-copy h1>span:last-child{font-size:32px}.home-ref-benefits{gap:7px;padding:10px 8px;flex-wrap:wrap;max-width:350px}.home-ref-benefits>div{flex:0 0 calc(50% - 4px);border:0!important;padding:0!important;gap:8px}.home-ref-benefits strong{font-size:11px}.home-ref-benefits .home-ref-icon{width:24px;height:24px}.home-ref-hero-photo{height:260px}.home-ref-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.factory-home.home-reference .brand-wall-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.home-ref-model-card{flex-basis:calc((100% - 10px)/2)}.home-ref-model-info h3{font-size:11px}.home-ref-factory-stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px}.home-ref-factory-stages h3{font-size:14px}.factory-home.home-reference .social-strip-items{grid-template-columns:repeat(2,minmax(0,1fr))}.home-ref-store-fact{gap:6px;padding:11px 8px}.home-ref-store-fact .home-ref-icon{width:19px;height:19px}.home-ref-store-qr{width:54px;min-height:85px;font-size:8px}.home-ref-store-qr img{width:40px;height:40px}.home-ref-store-fact strong{font-size:10px}.home-ref-store-fact address{font-size:9px}.site-header.site-header--home-reference .home-header-wordmark{width:165px}}
 html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0,#e9f0f4e8 32%,#e9f0f424 59%,transparent 72%)}
 /* Match the product center's full-width 250px banner; mobile keeps its 280px minimum. */
-.home-reference .home-ref-hero{width:100%;height:250px;min-height:250px}
+.home-reference .home-ref-hero{width:100%;height:250px;min-height:250px;background:#0b0e12;overflow:hidden}
 .home-reference .home-ref-hero-inner{padding-block:20px 18px}
 .home-reference .home-ref-hero-copy{width:57%;max-width:740px}
 .home-reference .home-ref-hero-copy>.home-ref-eyebrow{font-size:16px;line-height:20px;margin-bottom:8px}
@@ -35,8 +35,9 @@ html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0
 .home-reference .home-ref-benefits .home-ref-icon{width:28px;height:28px}
 .home-reference .home-ref-benefits strong{font-size:12px;line-height:16px}
 .home-reference .home-ref-benefits small{display:block;font-size:10px;line-height:14px;margin-top:2px}
-.home-reference .home-ref-hero-photo{width:51%;height:100%;top:0;bottom:auto;opacity:1}
-.home-reference .home-ref-hero-photo img{object-position:right center}
+.home-reference .home-ref-hero-photo{width:min(100%,1500px);height:100%;top:0;bottom:auto;opacity:1}
+.home-reference .home-ref-hero-photo img{object-fit:cover;object-position:right 63%}
+.home-reference .home-ref-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0b0e12 0,#0b0e1270 27%,transparent 52%);pointer-events:none}
 .home-reference .home-ref-search-band{margin-top:0;padding-top:16px;background:#fafafa}
 @media(min-width:641px) and (max-width:999px){
  .home-reference .home-ref-hero-copy{width:60%}
@@ -51,7 +52,8 @@ html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0
  .home-reference .home-ref-hero-copy{width:100%;max-width:540px}
  .home-reference .home-ref-hero-copy h1,.home-reference .home-ref-hero-copy h1>span:last-child{font-size:clamp(28px,7vw,34px);line-height:1.15}
  .home-reference .home-ref-hero-intro{width:auto;max-width:100%;font-size:13px;line-height:21px}
- .home-reference .home-ref-hero-photo{width:65%;height:250px;opacity:.3}
+ .home-reference .home-ref-hero-photo{width:180%;height:100%;opacity:.28}
+ .home-reference .home-ref-hero-photo img{object-fit:contain;object-position:right center}
  .home-reference .home-ref-benefits{width:100%;max-width:480px;flex-wrap:wrap;gap:10px 8px;padding:10px}
  .home-reference .home-ref-benefits>div{flex:0 0 calc(50% - 4px);border:0;padding:0;gap:8px}
  .home-reference .home-ref-benefits strong{font-size:11px}
