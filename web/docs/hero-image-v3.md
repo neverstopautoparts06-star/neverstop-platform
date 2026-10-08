@@ -1,5 +1,7 @@
 # NEVERSTOP homepage HERO v3: preserved product photography
 
+Superseded: the customer rejected the separate background/product layers for their collaged, visually incoherent appearance. The homepage now uses the single cohesive studio/vehicle photograph documented in `hero-image-v5.md`.
+
 The customer rejected the v2 shock absorbers because their generated mechanical structure was incorrect. This revision removes those generated foreground products and reuses an existing product photo asset unchanged.
 
 ## Assets
@@ -24,4 +26,3 @@ Edit target: the supplied old hero image. Remove BOTH foreground shock absorbers
 Preserve the premium black, charcoal and restrained warm brand-yellow lighting, the realistic concrete floor texture and the wide photographic composition. Keep the left 60% very dark and quiet for native white/yellow HTML text. Put only a subtle warm yellow rim-light glow and out-of-focus industrial vertical details at the far right. Clean commercial automotive studio atmosphere, credible materials, no clutter. The entire right side remains an empty background: existing real product photography will be placed on top separately by the website without regenerating the products.
 No text, no logos, no captions, no icons, no UI, no watermark. Panoramic wide photograph.
 ```
-
