@@ -60,7 +60,7 @@ async function run(){
     for(const locale of locales){
       const response:Response=await fetch(`${base}/${locale}/products/${p.slug}`);assert.equal(response.status,200);
       const html=await response.text();const t=productDetailCopy(locale);
-      assert.ok(html.includes(t.requestQuote));assert.ok(html.includes(t.productInformation));
+      assert.ok(html.includes(t.requestQuote));assert.ok(!html.includes('id="product-information"'));
       assert.ok(html.includes(p.partNumber));assert.match(html,/<title>[^<]*NEVERSTOP<\/title>/);
       for(const field of ['retailPrice1','retailPrice2','reservedQuantity','storeStock','warehouseStock'])assert.ok(!html.includes(field),`Internal field exposed: ${field}`);
       const view=productDetailView(p,locale);

@@ -90,10 +90,7 @@ export default async function ProductPage({params}:Props){
           <ProductInquiryActions context={view.context} labels={t}/>
         </div>
       </div>
-      <div className={`pdp-specification-grid${view.technical.length?' has-technical':''}`}>
-        <DetailSection id="product-information" number="01" sectionKey="productInformation" locale={locale}><Parameters rows={view.information} locale={locale}/>{view.description?.trim()&&<div className="pdp-description"><h3>{t.description}</h3><p>{view.description}</p></div>}</DetailSection>
-        {view.technical.length>0&&<DetailSection id="technical-data" number="02" sectionKey="technicalData" locale={locale}><Parameters rows={view.technical} locale={locale}/></DetailSection>}
-      </div>
+      {view.technical.length>0&&<DetailSection id="technical-data" number="02" sectionKey="technicalData" locale={locale}><Parameters rows={view.technical} locale={locale}/></DetailSection>}
       {view.fitments.length>0&&<DetailSection id="vehicle-fitment" number="03" sectionKey="vehicleFitment" locale={locale}>
         <div className="pdp-fitment-scroll" tabIndex={0} role="region" aria-label={t.vehicleFitment}><table className="pdp-fitment-table"><thead><tr>{fitmentColumns.map(key=><th key={key} scope="col"><BilingualLabel label={t[key]} english={en[key]} stack/></th>)}</tr></thead><tbody>{view.fitments.map(f=><tr key={f.id}><td>{f.brand}</td><td>{f.model}</td>{showGeneration&&<td>{f.generation}</td>}<td>{f.year}</td>{showEngine&&<td>{f.engine}</td>}{view.axle&&<td>{view.axle}</td>}{view.position&&<td>{view.position}</td>}{view.oem.length>0&&<td><span className="pdp-table-oem" dir="ltr">{view.oem.join(' / ')}</span></td>}<td><strong dir="ltr">{p.partNumber}</strong></td></tr>)}</tbody></table></div>
         {view.oem.length>0&&<p className="pdp-note">{t.oemNote} {t.oemScope}</p>}

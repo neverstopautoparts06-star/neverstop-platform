@@ -48,7 +48,6 @@
 .pdp-channel-links .contact-brand-icon{width:34px!important;height:34px!important;flex-shrink:0}
 .pdp-whatsapp-icon{display:grid;place-items:center;background:#10b779;border-radius:7px;width:34px;height:34px;flex-shrink:0}.pdp-whatsapp-icon .contact-brand-icon{filter:brightness(0) invert(1);width:29px!important;height:29px!important}
 .pdp-actions button:hover,.pdp-channel-links a:hover,.pdp-channel-links button:hover{filter:brightness(.97)}
-.pdp-specification-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:26px}.pdp-specification-grid.has-technical{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
 .pdp-section{margin-top:24px;min-width:0}.pdp-section-heading{display:flex;align-items:center;gap:15px;margin-bottom:8px;min-width:0}
 .pdp-section h2{display:flex;align-items:center;gap:11px;margin:0;font-size:18px;font-weight:750;line-height:1.35;min-width:0}
 .pdp-section h2 .pdp-label-secondary{font-size:14px;color:#111214;font-weight:700}
@@ -58,7 +57,6 @@
 .pdp-parameters>div{display:grid;grid-template-columns:minmax(0,44%) minmax(0,1fr);align-items:stretch;min-width:0;border-bottom:1px solid var(--pdp-line)}
 .pdp-parameters>div:last-child{border-bottom:0}.pdp-parameters dt{font-size:12px;line-height:1.6;font-weight:600;padding:5px 11px;background:#f2f3f5;border-inline-end:1px solid var(--pdp-line)}
 .pdp-parameters dd{font-size:12px;color:#24262b;line-height:1.6;overflow-wrap:anywhere;margin:0;padding:5px 14px}
-.pdp-description{margin-top:12px;max-width:850px}.pdp-description h3{font-size:12px;margin:0 0 5px;color:#53565b}.pdp-description p{font-size:12px;line-height:1.7;color:#686b70;white-space:pre-wrap;margin:0}
 .pdp-fitment-scroll{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--pdp-line);border-radius:3px;background:#f8f9fa;max-width:100%;scrollbar-width:thin}
 .pdp-fitment-table{border-collapse:collapse;width:100%;min-width:820px;text-align:start;font-size:12px;line-height:1.5}
 .pdp-fitment-table th,.pdp-fitment-table td{padding:8px 12px;text-align:start;border-bottom:1px solid var(--pdp-line);border-inline-end:1px solid var(--pdp-line);vertical-align:top}
@@ -99,7 +97,7 @@
  .pdp-actions,.pdp-channel-links{gap:8px}.product-detail .pdp-actions>div>button.zalo-cta{padding:10px 8px;gap:6px;font-size:12px}
  .product-detail .pdp-channel-links>div>button.zalo-cta,.pdp-channel-links>a{padding:8px;gap:6px}.pdp-channel-links strong{font-size:10px}.pdp-channel-links small{font-size:9px}
  .pdp-channel-links .contact-brand-icon,.pdp-whatsapp-icon{width:29px!important;height:29px!important}.pdp-whatsapp-icon .contact-brand-icon{width:25px!important;height:25px!important}
- .pdp-specification-grid.has-technical,.pdp-packaging.has-image,.pdp-packaging.has-image.has-data,.pdp-packaging.has-image.has-data:has(>div:only-of-type){grid-template-columns:minmax(0,1fr);gap:0}
+ .pdp-packaging.has-image,.pdp-packaging.has-image.has-data,.pdp-packaging.has-image.has-data:has(>div:only-of-type){grid-template-columns:minmax(0,1fr);gap:0}
  .pdp-section{margin-top:24px}.pdp-section-heading{gap:10px;align-items:flex-start}.pdp-section h2{font-size:17px}.pdp-section h2 .pdp-label-secondary{font-size:11px;display:block}.pdp-section-number{height:30px;min-width:34px;font-size:16px}
  .pdp-section-caption{display:none}.pdp-related-more{font-size:11px}
  .pdp-parameters>div{grid-template-columns:minmax(0,1fr)}.pdp-parameters dt{border-inline-end:0;padding:8px 11px 2px;font-size:12px;background:transparent}.pdp-parameters dd{padding:2px 11px 8px;font-size:13px}.pdp-packaging .pdp-parameters dt,.pdp-packaging .pdp-parameters dd{font-size:12px}
