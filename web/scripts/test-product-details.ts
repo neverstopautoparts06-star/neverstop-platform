@@ -6,7 +6,7 @@ import {filledRows,positiveValue,hasHanoiStock,verifiedSupplement,productDetailV
 import {verifiedProductData} from '../src/lib/verified-product-data';
 import {getProduct,getRelatedProducts,type ProductDetail} from '../src/lib/product-details';
 import {prisma} from '../src/lib/prisma';
-import {referencePackaging} from '../src/lib/product-reference-images';
+import {referencePackaging,referencePackagingRows} from '../src/lib/product-reference-images';
 
 // Synthetic values exist only in this process; this test never writes database rows.
 const fixture:ProductDetail={
@@ -25,6 +25,7 @@ async function run(){
   assert.equal(hasHanoiStock([{quantity:3,reservedQuantity:1}]),true);
   assert.equal(hasHanoiStock([{quantity:3,reservedQuantity:1}],true),false);
   assert.equal(verifiedSupplement({source:' ',technical:{strokeMm:999}}),undefined);
+  assert.deepEqual(referencePackagingRows(productDetailCopy('en'),false),[],'Unverified reference values must not appear in the production view.');
   for(const locale of locales){
     const t=productDetailCopy(locale),view=productDetailView(fixture,locale);
     assert.equal(view.technical.length,0);assert.equal(view.packaging.length,0);
@@ -49,6 +50,7 @@ async function run(){
     assert.ok(record,'An existing active product is needed for read-only integration checks.');
     const p=await getProduct(record.slug);assert.ok(p);
     const related=await getRelatedProducts(p);
+    assert.ok(related.length<=3,'Related products must fit the requested three-card row.');
     for(const item of related){
       assert.notEqual(item.id,p.id);
       const relation=await prisma.productFitment.findFirst({where:{productId:item.id,vehicleVariantId:{in:p.fitments.map(f=>f.vehicleVariant.id)}}});
@@ -64,7 +66,11 @@ async function run(){
       const view=productDetailView(p,locale);
       if(!view.technical.length)assert.ok(!html.includes('id="technical-data"'));
       if(!view.packaging.length&&!view.packagingImages.length&&!referencePackaging(p.partNumber).length)assert.ok(!html.includes('id="packaging-logistics"'));
-      if(!view.packaging.length)assert.ok(!html.includes('68 × 21 × 21'),'Mockup dimensions must not become product data');
+      if(!view.packaging.length&&html.includes('68 × 21 × 21')){
+        assert.ok(html.includes('data-reference-example="true"'),'Reference values must be marked as preview examples.');
+        assert.ok(html.includes(t.packagingExample),'Reference values must have a visible localized disclaimer.');
+        assert.equal(view.packaging.length,0,'Preview examples must not become verified product data.');
+      }
     }
     const checks:Record<string,string>[]=[{q:p.partNumber},...(p.oeNumbers[0]?[{q:p.oeNumbers[0].oeNumber.number}]:[]),...(p.fitments[0]?[{variantId:p.fitments[0].vehicleVariant.id,year:String(p.fitments[0].vehicleVariant.yearFrom)}]:[])];
     for(const query of checks){

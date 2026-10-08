@@ -18,5 +18,21 @@ export function referenceGallery(partNumber:string):GalleryImage[]{
   return [];
 }
 export function referencePackaging(partNumber:string):GalleryImage[]{
-  return partNumber==='2025-D641-302F'?['packaging-box','packaging-open'].map(name=>({id:`reference-${name}`,url:`${root}/${name}.webp`,altText:null})):[];
+  return ['2025-D641-302F','2025-C315-252R'].includes(partNumber)?['packaging-box','packaging-open'].map(name=>({id:`reference-${name}`,url:`${root}/${name}.webp`,altText:null})):[];
 }
+
+/** Layout examples transcribed from the user's packaging screenshot.
+ * Call only in LOCAL_CATALOG_PREVIEW; these are not verified SKU facts.
+ * Never merge them into Product, verifiedProductData or productDetailView.
+ */
+export function referencePackagingRows(labels:{perCarton:string;piecesPerBox:string;cartonSize:string;netWeight:string;grossWeight:string},localPreview:boolean){
+  if(!localPreview)return [];
+  return [
+    {label:labels.perCarton,value:'4 PCS'},
+    {label:labels.piecesPerBox,value:'1 PCS'},
+    {label:labels.cartonSize,value:'68 × 21 × 21 cm'},
+    {label:labels.netWeight,value:'4.8 kg'},
+    {label:labels.grossWeight,value:'20.0 kg (approx.)'},
+  ];
+}
+export const referenceRelatedPhotos=[`${root}/front-main.webp`,`${root}/rear-main.webp`];

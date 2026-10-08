@@ -69,9 +69,10 @@
 .pdp-packaging.has-image.has-data:has(>div:only-of-type){grid-template-columns:minmax(0,35fr) minmax(0,65fr)}
 .pdp-packaging-image{position:relative;min-width:0;aspect-ratio:2.2;background:#eceef3;border:1px solid var(--pdp-line);border-radius:3px;overflow:hidden}
 .pdp-packaging.has-data .pdp-packaging-image{height:100%;min-height:135px;aspect-ratio:auto}.pdp-packaging .pdp-parameters{height:fit-content}.pdp-packaging .pdp-parameters dt,.pdp-packaging .pdp-parameters dd{font-size:11px;padding:5px 9px}
-.pdp-related{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pdp-related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .pdp-related-card{display:flex;background:#f8f9fb;border:1px solid var(--pdp-line);border-radius:4px;min-width:0;overflow:hidden;transition:border-color .2s}
 .pdp-related-card:hover{border-color:#d4a600}.pdp-related-image{width:45%;flex-shrink:0;position:relative;aspect-ratio:1.08;align-self:stretch;display:grid;place-items:center;color:#9298a0;background:#edeff3}
+.pdp-related-placeholder>div:last-child>strong{font-weight:600;color:#555a61}.pdp-related-placeholder:hover{border-color:var(--pdp-line)}
 .pdp-related-image span{font-size:10px;text-align:center;padding:4px}.pdp-related-image .pdp-contain{padding:4px}
 .pdp-related-card>div:last-child{position:relative;min-width:0;padding:17px 10px 22px}.pdp-related-card strong{font-size:12px;line-height:1.4;overflow-wrap:anywhere}
 .pdp-related-card h3{font-size:11px;font-weight:400;line-height:1.5;margin:7px 0 4px;color:#74777d}.pdp-related-card p{font-size:10px;color:#70757c;margin:0;line-height:1.4}
@@ -87,7 +88,7 @@
  body:has(.product-detail) .header-quote{min-height:34px;padding-block:7px}
 }
 @media(min-width:1300px){.pdp-core>div{min-height:44px}.pdp-core dt{font-size:12px}.pdp-core dd{font-size:14px}.pdp-part-number{padding:13px 18px}.pdp-oem{margin-top:17px}.pdp-inquiry{margin-top:18px}.pdp-oem h2{font-size:15px}.pdp-oem li{font-size:14px}.pdp-actions>div>button.zalo-cta{min-height:49px!important;font-size:14px!important}.pdp-channel-links strong{font-size:13px}.pdp-section h2{font-size:21px}.pdp-section h2 .pdp-label-secondary{font-size:16px}.pdp-parameters dt,.pdp-parameters dd{font-size:13px;padding-block:7px}}
-@media(max-width:1150px){.pdp-core-columns{gap:10px}.pdp-core+dl{padding-inline-start:10px}.pdp-core>div{grid-template-columns:24px minmax(0,1.1fr) minmax(0,1fr);gap:5px}.pdp-core dt{font-size:10px}.pdp-core dd{font-size:11px}.pdp-channel-links>a,.product-detail .pdp-channel-links>div>button.zalo-cta{padding-inline:9px;gap:7px}.pdp-channel-links strong{font-size:11px}.pdp-section-caption{font-size:9px}.pdp-related{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1150px){.pdp-core-columns{gap:10px}.pdp-core+dl{padding-inline-start:10px}.pdp-core>div{grid-template-columns:24px minmax(0,1.1fr) minmax(0,1fr);gap:5px}.pdp-core dt{font-size:10px}.pdp-core dd{font-size:11px}.pdp-channel-links>a,.product-detail .pdp-channel-links>div>button.zalo-cta{padding-inline:9px;gap:7px}.pdp-channel-links strong{font-size:11px}.pdp-section-caption{font-size:9px}}
 @media(max-width:800px){
  .product-detail{padding:12px 0 30px}.pdp-container{width:calc(100% - 32px)}
  .pdp-breadcrumb{font-size:10px;gap:6px;margin-bottom:12px}

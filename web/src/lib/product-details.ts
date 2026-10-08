@@ -23,7 +23,7 @@ export async function getRelatedProducts(product:ProductDetail) {
   // A shared active variant is an existing fitment relationship, not a guessed platform.
   return prisma.product.findMany({
     where:{id:{not:product.id},status:'ACTIVE',fitments:{some:{vehicleVariantId:{in:variants},vehicleVariant:{isActive:true,vehicleModel:{isActive:true,brand:{isActive:true}}}}}},
-    take:4,orderBy:[{axle:'asc'},{side:'asc'},{partNumber:'asc'}],
+    take:3,orderBy:[{axle:'asc'},{side:'asc'},{partNumber:'asc'}],
     select:{id:true,slug:true,partNumber:true,nameVi:true,nameEn:true,nameZh:true,axle:true,side:true,images:{take:1,orderBy:[{isPrimary:'desc'},{sortOrder:'asc'}],select:{id:true,url:true,altText:true}}},
   });
 }

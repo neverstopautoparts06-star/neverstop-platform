@@ -7,7 +7,7 @@ import {isLocale,locales,localized,type Locale} from '@/lib/i18n';
 import {getProduct,getRelatedProducts} from '@/lib/product-details';
 import {productDetailCopy,type ProductDetailCopy} from '@/lib/product-detail-copy';
 import {productDetailView,type DetailRow} from '@/lib/product-detail-view';
-import {referenceGallery,referencePackaging} from '@/lib/product-reference-images';
+import {referenceGallery,referencePackaging,referencePackagingRows,referenceRelatedPhotos} from '@/lib/product-reference-images';
 import {siteOrigin} from '@/lib/site-config';
 import ProductGallery from '@/components/product-gallery';
 import ProductInquiryActions from '@/components/product-inquiry-actions';
@@ -51,7 +51,8 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
 export default async function ProductPage({params}:Props){
   const {locale,slug}=await params;if(!isLocale(locale))notFound();
   const p=await getProduct(slug);if(!p)notFound();
-  const t=productDetailCopy(locale),view=productDetailView(p,locale,process.env.LOCAL_CATALOG_PREVIEW==='1');
+  const localPreview=process.env.LOCAL_CATALOG_PREVIEW==='1';
+  const t=productDetailCopy(locale),view=productDetailView(p,locale,localPreview);
   const related=await getRelatedProducts(p);
   const realImages=p.images.filter(image=>safeImage(image.url));
   const gallery=realImages.length?realImages:referenceGallery(p.partNumber);
@@ -60,6 +61,9 @@ export default async function ProductPage({params}:Props){
   const referencePack=referencePackaging(p.partNumber);
   const packPhotos=packagingImages.length?packagingImages:referencePack;
   const temporaryPack=!packagingImages.length&&referencePack.length>0;
+  const packagingExample=localPreview&&view.packaging.length===0&&temporaryPack;
+  const packagingRows=packagingExample?referencePackagingRows(t,localPreview):view.packaging;
+  const relatedPlaceholders=localPreview&&related.length>0?referenceRelatedPhotos.slice(0,Math.max(0,3-related.length)):[];
   const showGeneration=view.fitments.some(f=>f.generation);
   const showEngine=view.fitments.some(f=>f.engine);
   const fitmentColumns:CopyKey[]=['brand','model',...(showGeneration?['generation' as const]:[]),'year',...(showEngine?['engine' as const]:[]),...(view.axle?['axle' as const]:[]),...(view.position?['position' as const]:[]),...(view.oem.length?['referenceOem' as const]:[]),'partNumber'];
@@ -94,17 +98,17 @@ export default async function ProductPage({params}:Props){
         <div className="pdp-fitment-scroll" tabIndex={0} role="region" aria-label={t.vehicleFitment}><table className="pdp-fitment-table"><thead><tr>{fitmentColumns.map(key=><th key={key} scope="col"><BilingualLabel label={t[key]} english={en[key]} stack/></th>)}</tr></thead><tbody>{view.fitments.map(f=><tr key={f.id}><td>{f.brand}</td><td>{f.model}</td>{showGeneration&&<td>{f.generation}</td>}<td>{f.year}</td>{showEngine&&<td>{f.engine}</td>}{view.axle&&<td>{view.axle}</td>}{view.position&&<td>{view.position}</td>}{view.oem.length>0&&<td><span className="pdp-table-oem" dir="ltr">{view.oem.join(' / ')}</span></td>}<td><strong dir="ltr">{p.partNumber}</strong></td></tr>)}</tbody></table></div>
         {view.oem.length>0&&<p className="pdp-note">{t.oemNote} {t.oemScope}</p>}
       </DetailSection>}
-      {(view.packaging.length>0||packPhotos.length>0)&&<DetailSection id="packaging-logistics" number="04" sectionKey="packaging" locale={locale}><div className={`pdp-packaging${packPhotos.length?' has-image':''}${view.packaging.length?' has-data':''}`}>
+      {(packagingRows.length>0||packPhotos.length>0)&&<DetailSection id="packaging-logistics" number="04" sectionKey="packaging" locale={locale}><div className={`pdp-packaging${packPhotos.length?' has-image':''}${packagingRows.length?' has-data':''}`} data-reference-example={packagingExample||undefined}>
         {packPhotos.slice(0,1).map(image=><div key={image.id} className="pdp-packaging-image"><Image src={image.url} alt={image.altText||t.packagingPhoto} fill sizes="(max-width:800px) 100vw, 35vw" className="pdp-contain" unoptimized/></div>)}
-        {view.packaging.length>0&&<Parameters rows={view.packaging} locale={locale}/>}
+        {packagingRows.length>0&&<Parameters rows={packagingRows} locale={locale}/>}
         {packPhotos.slice(1,2).map(image=><div key={image.id} className="pdp-packaging-image"><Image src={image.url} alt={image.altText||t.packagingPhoto} fill sizes="(max-width:800px) 100vw, 25vw" className="pdp-contain" unoptimized/></div>)}
-      </div>{temporaryPack&&<p className="pdp-image-caption">{t.temporaryPackaging}</p>}</DetailSection>}
+      </div>{packagingExample?<p className="pdp-image-caption">{t.packagingExample}</p>:temporaryPack&&<p className="pdp-image-caption">{t.temporaryPackaging}</p>}</DetailSection>}
       {related.length>0&&<DetailSection id="related-products" number="05" sectionKey="relatedProducts" locale={locale} extra={<Link className="pdp-related-more" href={`/${locale}/products?q=${encodeURIComponent(view.models||p.partNumber)}`}>{t.viewProduct} <span aria-hidden="true">→</span></Link>}><div className="pdp-related">{related.map(product=>{
         const name=localized(product,locale),image=product.images.find(image=>safeImage(image.url))||referenceGallery(product.partNumber)[0];
         const axle=product.axle?{FRONT:t.front,REAR:t.rear,OTHER:t.other}[product.axle]:null;
         const side=product.side&&product.side!=='NA'?{LEFT:t.left,RIGHT:t.right,BOTH:t.both}[product.side]:null;
         return <Link key={product.id} href={`/${locale}/products/${encodeURIComponent(product.slug)}`} className="pdp-related-card"><div className="pdp-related-image">{image?<Image src={image.url} alt={image.altText||name} fill sizes="150px" className="pdp-contain" unoptimized/>:<span>{t.photoPending}</span>}</div><div><strong dir="ltr">{product.partNumber}</strong><h3>{name}</h3>{(axle||side)&&<p>{[axle,side].filter(Boolean).join(' · ')}</p>}<span className="pdp-related-arrow" aria-hidden="true">→</span></div></Link>;
-      })}</div></DetailSection>}
+      })}{relatedPlaceholders.map((url,index)=><article className="pdp-related-card pdp-related-placeholder" key={url} aria-label={t.relatedPending} data-reference-example="true"><div className="pdp-related-image"><Image src={url} alt={t.relatedExample} fill sizes="(max-width:800px) 110px, 15vw" className="pdp-contain" unoptimized/></div><div><strong>{t.relatedPending}</strong><h3>{t.relatedExample}</h3><p>{String(index+2).padStart(2,'0')}</p></div></article>)}</div>{relatedPlaceholders.length>0&&<p className="pdp-image-caption">{t.relatedPreviewNote}</p>}</DetailSection>}
     </div>
   </main>;
 }
