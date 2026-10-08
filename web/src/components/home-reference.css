@@ -26,10 +26,9 @@ body:has(.home-reference){display:flex;flex-direction:column}body:has(.home-refe
 html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0,#e9f0f4e8 32%,#e9f0f424 59%,transparent 72%)}
 /* Match the product center's full-width 250px banner; mobile keeps its 280px minimum. */
 .home-reference .home-ref-hero{width:100%;height:250px;min-height:250px;background:#0c0d0e;overflow:hidden}
-.home-reference .home-ref-hero-inner{padding-block:18px;z-index:2}
+.home-reference .home-ref-hero-inner{display:flex;align-items:center;padding-block:24px;z-index:2}
 .home-reference .home-ref-hero-copy{width:57%;max-width:740px}
-.home-reference .home-ref-hero-copy>.home-ref-eyebrow{font-size:16px;line-height:20px;margin-bottom:8px}
-.home-reference .home-ref-hero-copy h1{font-size:clamp(26px,3vw,40px);line-height:1.08}
+.home-reference .home-ref-hero-copy h1{font-size:clamp(26px,3vw,40px);line-height:1.18;color:var(--home-yellow)}
 .home-reference .home-ref-hero-intro{width:min(740px,calc(100vw - 48px));max-width:none;font-size:14px;line-height:22px;margin-top:10px;text-shadow:0 1px 4px #0009}
 .home-reference .home-ref-benefits{width:min(740px,calc(100vw - 48px));max-width:none;margin-top:12px;padding-block:6px;background:transparent;border-radius:0}
 .home-reference .home-ref-benefits .home-ref-icon{width:28px;height:28px}
@@ -51,9 +50,9 @@ html[dir=rtl] .home-reference .home-ref-hero-copy{margin-right:auto;margin-left:
 }
 @media(max-width:640px){
  .home-reference .home-ref-hero{height:auto;min-height:280px}
- .home-reference .home-ref-hero-inner{padding-block:26px}
+ .home-reference .home-ref-hero-inner{min-height:280px;padding-block:26px}
  .home-reference .home-ref-hero-copy{width:100%;max-width:540px}
- .home-reference .home-ref-hero-copy h1,.home-reference .home-ref-hero-copy h1>span:last-child{font-size:clamp(28px,7vw,34px);line-height:1.15}
+ .home-reference .home-ref-hero-copy h1{font-size:clamp(28px,7vw,34px);line-height:1.18}
  .home-reference .home-ref-hero-intro{width:auto;max-width:100%;font-size:13px;line-height:21px}
  .home-reference .home-ref-hero-photo{width:180%;height:100%;opacity:.45}
  .home-reference .home-ref-hero-photo img{object-fit:contain;object-position:right center}
