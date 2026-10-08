@@ -1,5 +1,7 @@
 # NEVERSTOP homepage HERO image v2
 
+Superseded: the customer rejected this generated foreground for incorrect product construction. The homepage no longer renders this image. See `hero-image-v3.md` for the replacement using an unchanged existing product-photo layer and a product-free generated background.
+
 Generated on 8 October 2026 using the built-in imagegen tool. One initial generation was followed by a composition edit. The image is a generic promotional illustration, not verified photography of a specific product or vehicle.
 
 - Generated original: `/Users/ninapan/.codex/generated_images/01a102ee-4149-7291-ad5b-81277036af08/exec-6bbc3936-f739-4861-85d0-9e4cbdb3b4f9.png`
@@ -27,4 +29,3 @@ Edit target: the supplied NEVERSTOP hero promotional image.
 Change only the product composition so this artwork works in an extremely shallow website hero, approximately 1440 by 250 pixels. Preserve the existing beautiful dark graphite garage, grey unbranded SUV, black-and-yellow color palette, photorealistic precision metal texture and silver/warm studio lighting. Preserve the completely empty dark left 55% for native HTML copy. No headlines or interface elements.
 Critical framing: arrange BOTH shock absorbers nearly horizontally on the RIGHT, with the large coil-over assembly only tilted about 10 degrees and the separate shock lying parallel underneath it. All foreground product contours must fit completely inside the CENTRAL 35% of the image HEIGHT, from 32% to 67% height; keep substantial unused dark scene above and below. Products occupy approximately x=60% to 94% of the image width. Both rods, mounting brackets, spring edges and eyes stay fully visible with breathing room. Do not crop or stretch either product, and do not move any objects into the empty left 55%. This center-safe composition will let a very wide, shallow banner crop the background at top and bottom without clipping the products. Car can remain a subtle background detail. Keep small yellow labels reading exactly NEVERSTOP, no extra text or specifications. Output a wide panoramic photographic image.
 ```
-

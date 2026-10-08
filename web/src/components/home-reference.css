@@ -26,7 +26,7 @@ body:has(.home-reference){display:flex;flex-direction:column}body:has(.home-refe
 html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0,#e9f0f4e8 32%,#e9f0f424 59%,transparent 72%)}
 /* Match the product center's full-width 250px banner; mobile keeps its 280px minimum. */
 .home-reference .home-ref-hero{width:100%;height:250px;min-height:250px;background:#0b0e12;overflow:hidden}
-.home-reference .home-ref-hero-inner{padding-block:20px 18px}
+.home-reference .home-ref-hero-inner{padding-block:20px 18px;z-index:2}
 .home-reference .home-ref-hero-copy{width:57%;max-width:740px}
 .home-reference .home-ref-hero-copy>.home-ref-eyebrow{font-size:16px;line-height:20px;margin-bottom:8px}
 .home-reference .home-ref-hero-copy h1{font-size:clamp(26px,3vw,40px);line-height:1.08}
@@ -38,7 +38,10 @@ html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0
 .home-reference .home-ref-hero-photo{width:min(100%,1500px);height:100%;top:0;bottom:auto;opacity:1}
 .home-reference .home-ref-hero-photo img{object-fit:cover;object-position:right 63%}
 .home-reference .home-ref-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0b0e12 0,#0b0e1270 27%,transparent 52%);pointer-events:none}
+.home-reference .home-ref-hero-product{position:absolute;inset-inline-end:clamp(16px,3vw,48px);top:10px;width:43%;max-width:600px;height:230px;z-index:1;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 15%,#000 87%,transparent)}
+.home-reference .home-ref-hero-product img{object-fit:contain;object-position:center}
 .home-reference .home-ref-search-band{margin-top:0;padding-top:16px;background:#fafafa}
+@media(min-width:1000px){.home-reference .home-ref-hero-intro,.home-reference .home-ref-benefits{width:100%}}
 @media(min-width:641px) and (max-width:999px){
  .home-reference .home-ref-hero-copy{width:60%}
  .home-reference .home-ref-benefits>div{flex:1;border-inline-start:1px solid #bfc1b54d;padding-inline:10px;gap:7px}
@@ -54,6 +57,7 @@ html[dir=rtl] .home-ref-store::after{background:linear-gradient(270deg,#e9f0f4 0
  .home-reference .home-ref-hero-intro{width:auto;max-width:100%;font-size:13px;line-height:21px}
  .home-reference .home-ref-hero-photo{width:180%;height:100%;opacity:.28}
  .home-reference .home-ref-hero-photo img{object-fit:contain;object-position:right center}
+ .home-reference .home-ref-hero-product{width:70%;height:100%;top:0;inset-inline-end:0;opacity:.22}
  .home-reference .home-ref-benefits{width:100%;max-width:480px;flex-wrap:wrap;gap:10px 8px;padding:10px}
  .home-reference .home-ref-benefits>div{flex:0 0 calc(50% - 4px);border:0;padding:0;gap:8px}
  .home-reference .home-ref-benefits strong{font-size:11px}
