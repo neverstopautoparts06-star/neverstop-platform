@@ -17,6 +17,8 @@ The existing `/[locale]` homepage uses the customer supplied `ChatGPT 图像 202
 
 CSS is scoped to `.home-reference` or `.site-header--home-reference` to avoid changing the product center/detail/contact routes after client navigation. Mobile categories collapse to two/three columns, logos to five/seven columns, the finder stacks vertically and model rows scroll inside the section rather than widening the page. Reduced-motion preferences and keyboard tab switching are respected.
 
+The homepage hero now matches the product center banner dimensions: full viewport width and 250px height above 640px. At 640px and below it uses the same 280px minimum with natural height for translated text. Headline and benefit spacing are compacted to fit the short banner. The finder sits immediately below it, rather than overlapping its content. Original language and contact controls remain unchanged.
+
 ## Validation
 
 - TypeScript: `tsc --noEmit`.
