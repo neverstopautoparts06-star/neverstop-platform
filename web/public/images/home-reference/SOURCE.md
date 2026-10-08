@@ -1,0 +1,3 @@
+# Homepage reference assets
+
+Lossless crops from the customer supplied “ChatGPT 图像 2026年10月8日 12_31_24.png” (936 × 1681). The crop coordinates are in source.json. Product, vehicle, factory and storefront images are temporary design illustrations supplied by the customer, not verified SKU fitment or photographs of actual facilities. All text, controls and links are native HTML. The supplied mock QR is not used; the page uses the existing configured Zalo QR endpoint. Real contact details and catalog queries are unchanged. Model year captions are sourced from catalog data outside local design preview; reference captions in preview are illustrative. No unverified business hours are added.
