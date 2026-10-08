@@ -10,7 +10,11 @@ export function referenceGallery(partNumber:string):GalleryImage[]{
     {id:'reference-main',url:`${root}/front-main.webp`,thumbnailUrl:`${root}/front-thumbnail.webp`,altText:null},
     ...['rod-detail','mount-detail','label-detail','box-detail'].map(name=>({id:`reference-${name}`,url:`${root}/${name}.webp`,altText:null})),
   ];
-  if(partNumber==='2025-C315-252R')return [{id:'reference-rear',url:`${root}/rear-main.webp`,altText:null}];
+  // Until verified rear-product photographs are available, keep the five-slot
+  // reference gallery requested by the user using the same temporary photo.
+  if(partNumber==='2025-C315-252R')return Array.from({length:5},(_,index)=>({
+    id:`reference-rear-${index+1}`,url:`${root}/rear-main.webp`,altText:null,
+  }));
   return [];
 }
 export function referencePackaging(partNumber:string):GalleryImage[]{
