@@ -1,21 +1,110 @@
-import {ZaloChatButton} from '@/components/zalo-contact';
+import type {Metadata} from 'next';
+import type {ReactNode} from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { dictionary, isLocale, localized } from '@/lib/i18n';
-import { getProduct } from '@/lib/product-details';
+import {notFound} from 'next/navigation';
+import {isLocale,locales,localized,type Locale} from '@/lib/i18n';
+import {getProduct,getRelatedProducts} from '@/lib/product-details';
+import {productDetailCopy,type ProductDetailCopy} from '@/lib/product-detail-copy';
+import {productDetailView,type DetailRow} from '@/lib/product-detail-view';
+import {referenceGallery,referencePackaging} from '@/lib/product-reference-images';
+import {siteOrigin} from '@/lib/site-config';
 import ProductGallery from '@/components/product-gallery';
-import { siteOrigin } from '@/lib/site-config';
+import ProductInquiryActions from '@/components/product-inquiry-actions';
+import ProductPartNumber from '@/components/product-part-number';
+import ProductDetailIcon,{type ProductIconName} from '@/components/product-detail-icon';
+import './product-detail.css';
+
 type Props={params:Promise<{locale:string;slug:string}>};
-export async function generateMetadata({params}:Props) {
- const {locale,slug}=await params;if(!isLocale(locale))return{};const p=await getProduct(slug);if(!p)return{};const origin=siteOrigin();
- return {title:localized(p,locale),description:localized(p,locale)+' · '+p.partNumber,...(origin?{alternates:{canonical:`${origin}/${locale}/products/${slug}`,languages:{vi:`${origin}/vi/products/${slug}`,en:`${origin}/en/products/${slug}`,'zh-CN':`${origin}/zh/products/${slug}`}}}:{})};
+type CopyKey=keyof ProductDetailCopy;
+const en=productDetailCopy('en'),vi=productDetailCopy('vi');
+function englishLabel(label:string,locale:Locale){
+  const copy=productDetailCopy(locale);
+  const key=(Object.keys(en) as (keyof typeof en)[]).find(key=>copy[key]===label);
+  return key?en[key]:label;
 }
-export default async function ProductPage({params}:Props) {
- const {locale,slug}=await params;if(!isLocale(locale))notFound();const p=await getProduct(slug);if(!p)notFound();const t=dictionary(locale);
- const name=localized(p,locale),description=(locale==='en'?p.descriptionEn:locale==='zh'?p.descriptionZh:p.descriptionVi)||p.descriptionVi;
- const fallback=locale!=='vi'&&(!(locale==='en'?p.nameEn:p.nameZh)||(p.descriptionVi&&!(locale==='en'?p.descriptionEn:p.descriptionZh)));
- const stock=p.inventory.reduce((sum,row)=>sum+Math.max(0,row.quantity-row.reservedQuantity),0);
- const specs=[[t.position,p.axle?t[p.axle]:null],[t.netWeight,p.netWeightKg?.toString()],[t.grossWeight,p.grossWeightKg?.toString()],[t.piecesCarton,p.piecesPerCarton?.toString()],[t.carton,p.cartonLengthCm&&p.cartonWidthCm&&p.cartonHeightCm?[p.cartonLengthCm,p.cartonWidthCm,p.cartonHeightCm].join(' × '):null]].filter(([,v])=>v);
- return <main id="main" className="mx-auto max-w-7xl px-6 py-12 text-white"><Link href={`/${locale}/products`} className="text-sm text-orange-500">{t.backProducts}</Link><div className="mt-8 grid gap-10 md:grid-cols-2"><ProductGallery images={p.images} name={name} empty={t.noImage}/><div><p className="break-all text-sm font-bold text-orange-500">{p.partNumber}</p><h1 className="mt-4 text-3xl font-black leading-tight md:text-4xl">{name}</h1><p className="mt-5 text-orange-400">{stock>0?t.inStock:t.outStock}</p><p className="mt-3 text-lg font-bold">{t.priceQuote}</p><p className="mt-5 whitespace-pre-wrap leading-7 text-zinc-400">{description||t.noDescription}</p>{fallback&&<p className="mt-3 text-xs text-zinc-500">{t.translationFallback}</p>}<ZaloChatButton context={{productName:name,partNumber:p.partNumber,oeNumber:p.oeNumbers.map(o=>o.oeNumber.number).join(', '),vehicleBrand:p.fitments[0]?.vehicleVariant.vehicleModel.brand.name,vehicleModel:p.fitments[0]?.vehicleVariant.vehicleModel.name,vehicleYear:p.fitments[0]?`${p.fitments[0].vehicleVariant.yearFrom}–${p.fitments[0].vehicleVariant.yearTo??'nay'}`:'',vehicleCode:p.fitments[0]?.vehicleVariant.modelCode??''}}/><p className="mt-4 text-sm leading-6 text-zinc-400">{t.confirmFit}</p></div></div>
- <div className="mt-12 grid gap-8 md:grid-cols-2"><section className="rounded-2xl border border-zinc-800 p-6"><h2 className="text-xl font-black">{t.fitments}</h2>{p.fitments.length?<ul className="mt-4 space-y-3 text-zinc-400">{p.fitments.map(({id,vehicleVariant:v})=><li key={id}>{v.vehicleModel.brand.name} {v.vehicleModel.name} {v.modelCode} · {v.yearFrom}–{v.yearTo??t.present}</li>)}</ul>:<p className="mt-4 text-zinc-400">{t.noFitments}</p>}</section><section className="rounded-2xl border border-zinc-800 p-6"><h2 className="text-xl font-black">{t.oeNumbers}</h2><p className="mt-4 break-words text-zinc-400">{p.oeNumbers.map(o=>o.oeNumber.number).join(' · ')||'—'}</p>{specs.length>0&&<><h2 className="mt-8 text-xl font-black">{t.specs}</h2><dl className="mt-4 space-y-3">{specs.map(([k,v])=><div key={k} className="flex justify-between gap-5 text-sm"><dt className="text-zinc-400">{k}</dt><dd>{v}</dd></div>)}</dl></>}</section></div></main>;
+function BilingualLabel({label,english,stack=false}:{label:string;english:string;stack?:boolean}){
+  return <>{label}{label!==english&&<small className={stack?'pdp-label-secondary stacked':'pdp-label-secondary'}><span aria-hidden="true">{stack?'':' / '}</span><bdi lang="en">{english}</bdi></small>}</>;
+}
+function Parameters({rows,locale}:{rows:DetailRow[];locale:Locale}){
+  return <dl className="pdp-parameters">{rows.map(row=><div key={row.label}><dt><BilingualLabel label={row.label} english={englishLabel(row.label,locale)}/></dt><dd>{row.value}</dd></div>)}</dl>;
+}
+function DetailSection({number,sectionKey,locale,children,id,extra}:{number:string;sectionKey:CopyKey;locale:Locale;children:ReactNode;id:string;extra?:ReactNode}){
+  const t=productDetailCopy(locale);
+  return <section className="pdp-section" aria-labelledby={id}><div className="pdp-section-heading"><h2 id={id}><span className="pdp-section-number" aria-hidden="true">{number}</span><span><BilingualLabel label={locale==='en'?en[sectionKey].toUpperCase():t[sectionKey]} english={en[sectionKey].toUpperCase()}/></span></h2>{locale!=='vi'&&<span className="pdp-section-caption" lang="vi">{vi[sectionKey].toUpperCase()}</span>}{extra}</div>{children}</section>;
+}
+function safeImage(url:string){return (url.startsWith('/')&&!url.startsWith('//'))||url.startsWith('https://');}
+
+export async function generateMetadata({params}:Props):Promise<Metadata>{
+  const {locale,slug}=await params;if(!isLocale(locale))return {};
+  const p=await getProduct(slug);if(!p)return {};
+  const t=productDetailCopy(locale),view=productDetailView(p,locale),origin=siteOrigin();
+  const vehicle=view.vehicleTitles.join(' / ');
+  const title=[vehicle||view.name,vehicle?t.shockAbsorber:null,p.partNumber].filter(Boolean).join(' ');
+  const description=p.seoDescription?.trim()||[view.name,vehicle,view.years,p.partNumber,view.oem.length?`${t.referenceOem}: ${view.oem.join(', ')}`:null,t.oemNote].filter(Boolean).join(' · ');
+  const path=`/${locale}/products/${encodeURIComponent(slug)}`;
+  return {title,description,keywords:[...view.vehicleTitles,p.partNumber,...view.oem],
+    ...(origin?{alternates:{canonical:origin+path,languages:Object.fromEntries(locales.map(l=>[l==='zh'?'zh-CN':l,`${origin}/${l}/products/${encodeURIComponent(slug)}`]))}}:{}),
+  };
+}
+
+export default async function ProductPage({params}:Props){
+  const {locale,slug}=await params;if(!isLocale(locale))notFound();
+  const p=await getProduct(slug);if(!p)notFound();
+  const t=productDetailCopy(locale),view=productDetailView(p,locale,process.env.LOCAL_CATALOG_PREVIEW==='1');
+  const related=await getRelatedProducts(p);
+  const realImages=p.images.filter(image=>safeImage(image.url));
+  const gallery=realImages.length?realImages:referenceGallery(p.partNumber);
+  const temporaryImages=!realImages.length&&gallery.length>0;
+  const packagingImages=view.packagingImages.filter(image=>safeImage(image.url));
+  const referencePack=referencePackaging(p.partNumber);
+  const packPhotos=packagingImages.length?packagingImages:referencePack;
+  const temporaryPack=!packagingImages.length&&referencePack.length>0;
+  const showGeneration=view.fitments.some(f=>f.generation);
+  const showEngine=view.fitments.some(f=>f.engine);
+  const fitmentColumns:CopyKey[]=['brand','model',...(showGeneration?['generation' as const]:[]),'year',...(showEngine?['engine' as const]:[]),...(view.axle?['axle' as const]:[]),...(view.position?['position' as const]:[]),...(view.oem.length?['referenceOem' as const]:[]),'partNumber'];
+  const icons:Partial<Record<CopyKey,ProductIconName>>={brand:'brand',model:'model',generation:'generation',year:'year',position:'position',productType:'productType',unit:'unit',axle:'axle',stock:'stock'};
+  const coreLeft=view.core.filter(row=>[t.brand,t.model,t.generation,t.year].includes(row.label));
+  const coreRight=view.core.filter(row=>!coreLeft.includes(row));
+  const subtitleKey=p.axle==='FRONT'?'frontShock':p.axle==='REAR'?'rearShock':'shockAbsorber';
+  const subtitle=[...new Set([t[subtitleKey],en[subtitleKey],vi[subtitleKey]])].join(' / ');
+  return <main id="main" className="product-detail">
+    <div className="pdp-container">
+      <nav className="pdp-breadcrumb" aria-label={t.products}><Link href={`/${locale}`}>{t.home}</Link><span aria-hidden="true">›</span><Link href={`/${locale}/products`}>{t.products}</Link>{view.brands&&<><span aria-hidden="true">›</span><Link href={`/${locale}/products?q=${encodeURIComponent(view.brands)}`}>{view.brands}</Link></>}{view.models&&<><span aria-hidden="true">›</span><Link href={`/${locale}/products?q=${encodeURIComponent(view.models)}`}>{view.models}</Link></>}<span aria-hidden="true">›</span><span dir="ltr">{p.partNumber}</span></nav>
+      <div className="pdp-first-screen">
+        <ProductGallery key={p.id} images={gallery} name={view.name} empty={t.photoPending} labels={t} temporary={temporaryImages}/>
+        <div className="pdp-summary">
+          <h1>{view.vehicleTitles[0]||view.name}</h1>
+          <p className="pdp-product-name">{subtitle}</p>
+          {view.fitments.length>1&&<a className="pdp-fitment-jump" href="#vehicle-fitment">{t.moreFitments} ({view.fitments.length}) ↓</a>}
+          <ProductPartNumber value={p.partNumber} label={locale==='en'?en.partNumber.toUpperCase():t.partNumber} copy={t.copyPartNumber} copied={t.copied} unavailable={t.copyUnavailable}/>
+          {view.oem.length>0&&<div className="pdp-oem"><h2><BilingualLabel label={t.referenceOem} english={en.referenceOem}/></h2><ul>{view.oem.map(number=><li key={number} dir="ltr">{number}</li>)}</ul><p className="pdp-note">{[...new Set([t.oemNote,en.oemNote,vi.oemNote])].join(' / ')}</p></div>}
+          <div className="pdp-core-columns">{[coreLeft,coreRight].map((column,i)=><dl className="pdp-core" key={i}>{column.map(row=>{
+            const key=(Object.keys(icons) as CopyKey[]).find(key=>t[key]===row.label),stock=key==='stock';
+            return <div key={row.label}><span className="pdp-core-icon"><ProductDetailIcon name={key&&icons[key]||'unit'} size={18}/></span><dt><BilingualLabel label={row.label} english={englishLabel(row.label,locale)}/></dt><dd className={stock?'pdp-stock':undefined}>{stock&&<span className={`pdp-stock-dot${view.inStock?' available':''}`} aria-hidden="true"/>}{row.value}</dd></div>;
+          })}</dl>)}</div>
+          <ProductInquiryActions context={view.context} labels={t}/>
+        </div>
+      </div>
+      <div className={`pdp-specification-grid${view.technical.length?' has-technical':''}`}>
+        <DetailSection id="product-information" number="01" sectionKey="productInformation" locale={locale}><Parameters rows={view.information} locale={locale}/>{view.description?.trim()&&<div className="pdp-description"><h3>{t.description}</h3><p>{view.description}</p></div>}</DetailSection>
+        {view.technical.length>0&&<DetailSection id="technical-data" number="02" sectionKey="technicalData" locale={locale}><Parameters rows={view.technical} locale={locale}/></DetailSection>}
+      </div>
+      {view.fitments.length>0&&<DetailSection id="vehicle-fitment" number="03" sectionKey="vehicleFitment" locale={locale}>
+        <div className="pdp-fitment-scroll" tabIndex={0} role="region" aria-label={t.vehicleFitment}><table className="pdp-fitment-table"><thead><tr>{fitmentColumns.map(key=><th key={key} scope="col"><BilingualLabel label={t[key]} english={en[key]} stack/></th>)}</tr></thead><tbody>{view.fitments.map(f=><tr key={f.id}><td>{f.brand}</td><td>{f.model}</td>{showGeneration&&<td>{f.generation}</td>}<td>{f.year}</td>{showEngine&&<td>{f.engine}</td>}{view.axle&&<td>{view.axle}</td>}{view.position&&<td>{view.position}</td>}{view.oem.length>0&&<td><span className="pdp-table-oem" dir="ltr">{view.oem.join(' / ')}</span></td>}<td><strong dir="ltr">{p.partNumber}</strong></td></tr>)}</tbody></table></div>
+        {view.oem.length>0&&<p className="pdp-note">{t.oemNote} {t.oemScope}</p>}
+      </DetailSection>}
+      {(view.packaging.length>0||packPhotos.length>0)&&<DetailSection id="packaging-logistics" number="04" sectionKey="packaging" locale={locale}><div className={`pdp-packaging${packPhotos.length?' has-image':''}${view.packaging.length?' has-data':''}`}>
+        {packPhotos.slice(0,1).map(image=><div key={image.id} className="pdp-packaging-image"><Image src={image.url} alt={image.altText||t.packagingPhoto} fill sizes="(max-width:800px) 100vw, 35vw" className="pdp-contain" unoptimized/></div>)}
+        {view.packaging.length>0&&<Parameters rows={view.packaging} locale={locale}/>}
+        {packPhotos.slice(1,2).map(image=><div key={image.id} className="pdp-packaging-image"><Image src={image.url} alt={image.altText||t.packagingPhoto} fill sizes="(max-width:800px) 100vw, 25vw" className="pdp-contain" unoptimized/></div>)}
+      </div>{temporaryPack&&<p className="pdp-image-caption">{t.temporaryPackaging}</p>}</DetailSection>}
+      {related.length>0&&<DetailSection id="related-products" number="05" sectionKey="relatedProducts" locale={locale} extra={<Link className="pdp-related-more" href={`/${locale}/products?q=${encodeURIComponent(view.models||p.partNumber)}`}>{t.viewProduct} <span aria-hidden="true">→</span></Link>}><div className="pdp-related">{related.map(product=>{
+        const name=localized(product,locale),image=product.images.find(image=>safeImage(image.url))||referenceGallery(product.partNumber)[0];
+        const axle=product.axle?{FRONT:t.front,REAR:t.rear,OTHER:t.other}[product.axle]:null;
+        const side=product.side&&product.side!=='NA'?{LEFT:t.left,RIGHT:t.right,BOTH:t.both}[product.side]:null;
+        return <Link key={product.id} href={`/${locale}/products/${encodeURIComponent(product.slug)}`} className="pdp-related-card"><div className="pdp-related-image">{image?<Image src={image.url} alt={image.altText||name} fill sizes="150px" className="pdp-contain" unoptimized/>:<span>{t.photoPending}</span>}</div><div><strong dir="ltr">{product.partNumber}</strong><h3>{name}</h3>{(axle||side)&&<p>{[axle,side].filter(Boolean).join(' · ')}</p>}<span className="pdp-related-arrow" aria-hidden="true">→</span></div></Link>;
+      })}</div></DetailSection>}
+    </div>
+  </main>;
 }
