@@ -82,7 +82,14 @@ export default function HomeReference({locale,localPreview,social,storefront,hou
  return <main id="main" className="factory-home home-reference" lang={locale}>
   <section className="home-ref-hero" aria-labelledby="home-ref-title">
    <div className="home-ref-hero-photo"><Image unoptimized fill preload src="/images/hero-studio-v5.jpg" alt={`NEVERSTOP · ${c.illustration}`} sizes="(max-width:640px) 180vw, (max-width:1500px) 100vw, 1500px"/></div>
-   <div className="home-ref-shell home-ref-hero-inner"><div className="home-ref-hero-copy"><h1 id="home-ref-title">{c.direct}</h1><p className="home-ref-hero-intro">{c.intro}</p>
+   <div className="home-ref-shell home-ref-hero-inner"><div className="home-ref-hero-copy">
+    <p className="home-ref-hero-direct">{c.direct}</p>
+    <h1 id="home-ref-title">{c.heroProduct}</h1>
+    <div className="home-ref-hero-credentials">
+     <p className="home-ref-hero-since" lang="en" dir="ltr"><span>{c.heroSince}</span><strong>{c.heroYear}</strong></p>
+     <p className="home-ref-hero-certification"><strong dir="ltr">TS16949</strong><span>{c.heroCertification}</span></p>
+    </div>
+    <p className="home-ref-hero-intro">{c.intro}</p>
     <div className="home-ref-benefits">{(['diamond','gear','shield','truck'] as const).map((name,i)=><div key={name}><Icon name={name}/><span><strong>{c.benefits[i]}</strong><small>{c.benefitNotes[i]}</small></span></div>)}</div>
    </div></div>
   </section>

@@ -6,8 +6,6 @@ The customer supplied `codex-clipboard-d83b22eb-065d-45a8-b45f-b1ebf63b7cba.png`
 
 The header variant matches the reference's wordmark, brand line and compact VI / EN / 中文 shortcuts. Its full language menu retains the current flag labels. Existing verified social URLs remain unchanged; the follow button opens the existing Zalo Video account. The unconfigured YouTube link remains an icon without an invented account URL. The local-data notice stays visible below this page, preserving the reference's top alignment; the shared footer remains below the reference content.
 
-On 9 October 2026, the product-page HERO title was replaced with the localized Factory-direct eyebrow, a larger white Automotive Shock Absorbers heading, and an inline Since 1983 / TS16949 quality-certification row. Factory-direct, 1983 and TS16949 use bold brand yellow. The year follows the repeatedly requested 1983; the conflicting 1993 in the latest message was not used. The photographic background and 250px desktop banner remain unchanged. At narrow widths the heading and credentials wrap naturally; redundant translated introduction and secondary benefit captions are omitted to keep the hierarchy compact. The homepage and shared language/contact controls are unchanged by this edit.
-
 ## Query behavior
 
 - `/api/vehicles` supplies actual active brand, model and variant IDs.
@@ -30,5 +28,3 @@ TypeScript and targeted ESLint pass with no errors or warnings. The website inte
 Product-detail regression checks pass for sparse/verified data handling, private-field exclusion, real related products, SEO, six locales, original part/OEM/vehicle queries and 404s. Synthetic inquiry records are cleaned up after tests. No real chat or notification messages are sent.
 
 The browser tool previously rejected local-page access, so the implementation has not been checked through actual browser screenshots or pixel-difference comparison. HTTP and source/asset checks do not establish pixel-perfect browser rendering.
-
-HERO copy validation on 9 October: targeted ESLint and TypeScript `tsc --noEmit` passed. All six product landing routes returned HTTP 200 with their localized product heading, 1983 and TS16949, and the served CSS contains the new typography rules. The homepage still returns HTTP 200. This validates the rendered HTML and served assets; no browser screenshot was captured for this change.

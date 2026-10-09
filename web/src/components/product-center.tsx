@@ -72,15 +72,7 @@ export default function ProductCenter({locale,query,localPreview}:{locale:Locale
  }
  return <main id="main" className="product-center">
   <section className="catalog-hero" aria-labelledby="catalog-title"><div className="catalog-shell catalog-hero-content">
-   <div className="catalog-hero-heading">
-    <p className="catalog-hero-direct">{c.heroDirect}</p>
-    <h1 id="catalog-title">{c.heroProduct}</h1>
-    <div className="catalog-hero-credentials">
-     <p className="catalog-hero-since" lang="en" dir="ltr"><span>{c.heroSince}</span><strong>{c.heroYear}</strong></p>
-     <p className="catalog-hero-certification"><strong dir="ltr">TS16949</strong><span>{c.heroCertification}</span></p>
-    </div>
-   </div>
-   <p className="catalog-hero-intro">{c.intro}</p><p className="catalog-hero-secondary">{c.introSecondary}</p>
+   <h1 id="catalog-title">{c.title}</h1><p className="catalog-hero-intro">{c.intro}</p><p className="catalog-hero-secondary">{c.introSecondary}</p>
    <div className="catalog-promises">{([{icon:'diamond',primary:c.quality,secondary:c.qualitySecondary},{icon:'gear',primary:c.fitment,secondary:c.fitmentSecondary},{icon:'truck',primary:c.expansion,secondary:c.expansionSecondary}] as const).map(item=><div key={item.icon}><Icon name={item.icon}/><span><strong>{item.primary}</strong><small>{item.secondary}</small></span></div>)}</div>
   </div></section>
   <section className="catalog-category-band" aria-label={c.moreCategories}><div className="catalog-shell catalog-categories">{productCenterCategories.map((category,index)=>{
